@@ -6,7 +6,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest --config ./test.config.json",
-    "build": "rm -rf dist && tsc",
+    "build": "tsc --declaration",
     "start": "ts-node src/index.ts",
     "postinstall": "npm run build"
   },
