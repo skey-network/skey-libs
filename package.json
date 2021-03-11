@@ -8,7 +8,7 @@
     "test": "jest --config ./test.config.json",
     "build": "rm -rf dist && tsc",
     "start": "ts-node src/main.ts",
-    "prepublish": "npm run build"
+    "postinstall": "npm run build"
   },
   "keywords": [],
   "author": "",
