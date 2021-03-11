@@ -4,11 +4,11 @@
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": ["dist"],
   "scripts": {
     "test": "jest --config ./test.config.json",
     "build": "tsc --declaration",
-    "start": "ts-node src/index.ts",
-    "postinstall": "npm run build"
+    "start": "ts-node src/index.ts"
   },
   "keywords": [],
   "author": "",
