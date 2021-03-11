@@ -4,10 +4,9 @@
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "files": ["dist"],
   "scripts": {
     "test": "jest --config ./test.config.json",
-    "build": "tsc --declaration",
+    "build": "rm -rf && tsc --declaration",
     "start": "ts-node src/index.ts"
   },
   "keywords": [],
