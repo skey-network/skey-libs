@@ -35,18 +35,20 @@ export const generateKey = async (
     name: 'smartkey',
     description: `${device}_${validTo}`,
     quantity: 1,
-    chainId: config.chainId
+    chainId: config.chainId,
+    fee: 5 * config.feeMultiplier
   }
 
   const tx = Transactions.issue(params, seed)
   return await broadcast(tx)
 }
 
-export const fund = async (address: string, amount = 1 * config.wvs) => {
+export const fund = async (address: string, amount = 0.1 * config.wvs) => {
   const params: Transactions.ITransferParams = {
     recipient: address,
     amount,
-    chainId: config.chainId
+    chainId: config.chainId,
+    fee: 5 * config.feeMultiplier
   }
 
   const tx = Transactions.transfer(params, config.seed)

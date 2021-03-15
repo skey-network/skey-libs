@@ -6,7 +6,7 @@ describe('read', () => {
     it('works correctly', async () => {
       const mockRequest = async (_: string) => {
         return {
-          values: {
+          items: {
             owner123123: 1
           }
         }
@@ -20,7 +20,7 @@ describe('read', () => {
     it('owner not found', async () => {
       const mockRequest = async (_: string) => {
         return {
-          values: {}
+          items: {}
         }
       }
 

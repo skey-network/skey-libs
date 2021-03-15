@@ -42,7 +42,14 @@ export const getInstance = (config: Config) => {
         chainId: config.chainId
       }),
     onBlockchainUpdate: (callback: (height: number) => any, interval = 500) =>
-      Utils.onBlockchainUpdate(callback, interval, { fetchHeight, delay: Utils.delay })
+      Utils.onBlockchainUpdate(callback, interval, { fetchHeight, delay: Utils.delay }),
+    generateKey: (device: string, validTo: number, seed: string, name = 'SmartKey') =>
+      Write.generateKey(device, validTo, seed, name, {
+        broadcast,
+        chainId: config.chainId
+      }),
+    insertData: (entries: Entry[], seed: string) =>
+      Write.insertData(entries, seed, { broadcast, chainId: config.chainId })
   }
 }
 

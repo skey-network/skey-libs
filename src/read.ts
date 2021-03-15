@@ -43,11 +43,11 @@ export const fetchKeyOwner = async (
   const path = `/assets/${assetId}/distribution/${height}/limit/${1}`
   const data = await deps.request(path)
 
-  if (!data.values) return undefined
+  if (!data.items) return undefined
 
-  const owner = Object.keys(data.values)[0]
+  const owner = Object.keys(data.items)[0]
 
-  if (data.values[owner] !== 1) {
+  if (data.items[owner] !== 1) {
     return undefined
   }
 

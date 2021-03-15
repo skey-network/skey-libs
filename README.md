@@ -66,3 +66,7 @@ npm test
   invoke deviceAction function on device
 - ### **onBlockchainUpdate**
   listener function that fires callback when new block is mined
+- ### **generateKey**
+  generate new key for device
+- ### **insertData**
+  send data transaction to address

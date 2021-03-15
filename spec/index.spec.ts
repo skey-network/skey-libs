@@ -22,10 +22,12 @@ describe('index', () => {
     expect(lib.fetchDevice).toBeDefined()
     expect(lib.interactWithDevice).toBeDefined()
     expect(lib.onBlockchainUpdate).toBeDefined()
+    expect(lib.generateKey).toBeDefined()
+    expect(lib.insertData).toBeDefined()
   })
 
   it('contains exact number of properties', async () => {
-    const EXPECTED = 17
+    const EXPECTED = 19
     const no = Object.keys(lib).length
 
     expect(no).toBe(EXPECTED)
