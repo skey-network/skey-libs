@@ -1,5 +1,6 @@
 import * as Read from '../src/read'
 import * as helper from './helper'
+import * as constants from '../src/constants'
 
 describe('read', () => {
   describe('fetchKeyOwner', () => {
@@ -114,7 +115,7 @@ describe('read', () => {
         fetchDataWithRegex: mockFetchDataWithRegex
       })
 
-      expect(regex).toBe('device_.{35}')
+      expect(regex).toBe(constants.deviceRegex)
       expect(address).toBe('address')
       expect(devices[0]).toEqual({ address: 'aaa', status: 'active' })
       expect(devices[1]).toEqual({ address: 'bbb', status: 'active' })
@@ -124,7 +125,7 @@ describe('read', () => {
   describe('fetchKeyWhitelist', () => {
     it('works correctly', async () => {
       const mockFetchDataWithRegex = async (regex: string, address: string) => {
-        expect(regex).toBe('key_.{32,44}')
+        expect(regex).toBe(constants.keyRegex)
         expect(address).toBe('aaa')
 
         return [

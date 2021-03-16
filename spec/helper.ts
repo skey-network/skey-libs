@@ -2,12 +2,12 @@ import * as Transactions from '@waves/waves-transactions'
 import * as Crypto from '@waves/ts-lib-crypto'
 
 export const config = {
-  nodeUrl: 'https://nodes-testnet.wavesnodes.com',
-  chainId: 'T',
+  nodeUrl: 'https://srv-de-1.testnet.node.smartkeyplatform.io',
+  chainId: 'A',
   feeMultiplier: 10 ** 5,
   wvs: 10 ** 8,
   seed:
-    'dice conduct tone increase park attract sponsor jelly prepare segment never crush used engine action'
+    'plug glove soup question eager slim genre olive notice spread fever obtain middle oyster struggle'
 }
 
 export const address = () => {

@@ -10,3 +10,6 @@ export const deviceFields = [
   'active',
   'connected'
 ]
+
+export const deviceRegex = 'device_.{35}'
+export const keyRegex = 'key_.{32,44}'

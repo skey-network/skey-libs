@@ -1,5 +1,6 @@
 import fetch from 'node-fetch'
 import { deviceFields } from './constants'
+import * as constants from '../src/constants'
 
 type WithRequest = {
   request: (path: string) => Promise<any>
@@ -97,7 +98,7 @@ export type FetchDevicesDeps = {
   fetchDataWithRegex: (regex: string, address: string) => Promise<Entry[]>
 }
 export const fetchDevices = async (address: string, deps: FetchDevicesDeps) => {
-  const entries = await deps.fetchDataWithRegex('device_.{35}', address)
+  const entries = await deps.fetchDataWithRegex(constants.deviceRegex, address)
   return entries.map((entry) => ({
     address: entry.key.replace('device_', ''),
     status: entry.value as string
@@ -111,7 +112,7 @@ export const fetchKeyWhitellist = async (
   address: string,
   deps: FetchKeyWhitelistDeps
 ) => {
-  const entries = await deps.fetchDataWithRegex('key_.{32,44}', address)
+  const entries = await deps.fetchDataWithRegex(constants.keyRegex, address)
   return entries.map((entry) => ({
     assetId: entry.key.replace('key_', ''),
     status: entry.value as string

@@ -1,4 +1,5 @@
 import * as Transactions from '@waves/waves-transactions'
+import * as Crypto from '@waves/ts-lib-crypto'
 
 export const FEE_MULTIPLIER = 10 ** 5
 export const WVS = 10 ** 8

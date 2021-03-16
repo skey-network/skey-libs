@@ -1,29 +1,24 @@
 import * as helper from './helper'
 import { getInstance } from '../src/index'
-import { stderr } from 'process'
+import * as constants from '../src/constants'
 
 // createAccount            DONE
 // extractValuesFromKey     DONE
 // fetchKeyOwner            DONE
 // fetchHeight              DONE
 // fetchDataWithRegex       DONE
-// fetchDevices
+// fetchDevices             DONE
 // request                  DONE
 // fetchKeyWhitelist        DONE
 // waitForNBlocks           DONE
 // delay                    DONE
 // broadcast                DONE
 // transferKey              DONE
-// fetchDevice
+// fetchDevice              DONE
 // interactWithDevice
 // onBlockchainUpdate       DONE
 // generateKey              DONE
 // insertData               DONE
-
-const progress = Object.assign(
-  () => process.stdout.write((progress.counter++).toString()),
-  { counter: 0 }
-)
 
 const ctx = {
   dapp: {
@@ -59,8 +54,6 @@ describe('e2e', () => {
       helper.fund(ctx.device.address),
       helper.fund(ctx.user.address)
     ])
-
-    progress()
   })
 
   it('generateKey', async () => {
@@ -71,14 +64,10 @@ describe('e2e', () => {
       ctx.key.validTo,
       ctx.dapp.seed
     )
-
-    progress()
   })
 
   it('transferKey', async () => {
     await lib.transferKey(ctx.user.address, ctx.key.assetId, ctx.dapp.seed)
-
-    progress()
   })
 
   it('extract values from key', async () => {
@@ -87,8 +76,6 @@ describe('e2e', () => {
 
     expect(values.device).toBe(ctx.key.device)
     expect(values.validTo).toBe(ctx.key.validTo)
-
-    progress()
   })
 
   it('onBlockchainUpdate', async () => {
@@ -104,8 +91,6 @@ describe('e2e', () => {
     expect(heights[1]).toBeGreaterThanOrEqual(0)
     expect(heights[1]).toBeGreaterThan(heights[0])
     expect(heights.length).toBe(2)
-
-    progress()
   })
 
   it('check key owner', async () => {
@@ -114,8 +99,6 @@ describe('e2e', () => {
     const owner = await lib.fetchKeyOwner(ctx.key.assetId, height - 1)
 
     expect(owner).toBe(ctx.user.address)
-
-    progress()
   })
 
   it('fetchKeyWhitelist', async () => {
@@ -131,7 +114,7 @@ describe('e2e', () => {
 
     const [fromWhitelist, fromRegex] = await Promise.all([
       lib.fetchKeyWhitelist(ctx.device.address),
-      lib.fetchDataWithRegex('key_.{32,44}', ctx.device.address)
+      lib.fetchDataWithRegex(constants.keyRegex, ctx.device.address)
     ])
 
     expect(fromWhitelist).toContainEqual({ assetId: keys[0], status: 'active' })
@@ -147,7 +130,39 @@ describe('e2e', () => {
       value: 'active',
       type: 'string'
     })
+  })
 
-    progress()
+  it('fetchDevices', async () => {
+    const devices = [helper.createAccount().address, helper.createAccount().address]
+
+    await lib.insertData(
+      [
+        { key: `device_${devices[0]}`, value: 'active' },
+        { key: `device_${devices[1]}`, value: 'active' }
+      ],
+      ctx.dapp.seed
+    )
+
+    const result = await lib.fetchDevices(ctx.dapp.address)
+
+    expect(result.map((x) => x.address)).toContain(devices[0])
+    expect(result.map((x) => x.address)).toContain(devices[1])
+  })
+
+  it('fetchDevice', async () => {
+    await lib.insertData(
+      [
+        { key: 'name', value: 'Adam' },
+        { key: 'active', value: true },
+        { key: 'lat', value: '5.6345' }
+      ],
+      ctx.device.seed
+    )
+
+    const device = await lib.fetchDevice(ctx.device.address)
+
+    expect(device.name).toBe('Adam')
+    expect(device.active).toBe(true)
+    expect(device.location?.lat).toBe(5.6345)
   })
 })
