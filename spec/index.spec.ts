@@ -24,10 +24,11 @@ describe('index', () => {
     expect(lib.onBlockchainUpdate).toBeDefined()
     expect(lib.generateKey).toBeDefined()
     expect(lib.insertData).toBeDefined()
+    expect(lib.setScript).toBeDefined()
   })
 
   it('contains exact number of properties', async () => {
-    const EXPECTED = 19
+    const EXPECTED = 20
     const no = Object.keys(lib).length
 
     expect(no).toBe(EXPECTED)

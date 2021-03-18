@@ -70,3 +70,5 @@ npm test
   generate new key for device
 - ### **insertData**
   send data transaction to address
+- ### **setScript**
+  set base64 script on address

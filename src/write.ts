@@ -1,5 +1,4 @@
 import * as Transactions from '@waves/waves-transactions'
-import * as Crypto from '@waves/ts-lib-crypto'
 
 export const FEE_MULTIPLIER = 10 ** 5
 export const WVS = 10 ** 8
@@ -97,5 +96,17 @@ export const insertData = async (
   }
 
   const tx = Transactions.data(params, seed)
+  return await deps.broadcast(tx)
+}
+
+export type SetScriptDeps = TxDeps
+export const setScript = async (script: string, seed: string, deps: SetScriptDeps) => {
+  const params: Transactions.ISetScriptParams = {
+    script,
+    fee: 14 * FEE_MULTIPLIER,
+    chainId: deps.chainId
+  }
+
+  const tx = Transactions.setScript(params, seed)
   return await deps.broadcast(tx)
 }

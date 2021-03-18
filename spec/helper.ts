@@ -7,7 +7,7 @@ export const config = {
   feeMultiplier: 10 ** 5,
   wvs: 10 ** 8,
   seed:
-    'plug glove soup question eager slim genre olive notice spread fever obtain middle oyster struggle'
+    'furnace defy model disagree stick pepper pony angle avocado open still innocent blood room gun'
 }
 
 export const address = () => {

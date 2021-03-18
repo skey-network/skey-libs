@@ -1,6 +1,7 @@
 import * as helper from './helper'
 import { getInstance } from '../src/index'
 import * as constants from '../src/constants'
+import { readFileSync } from 'fs'
 
 // createAccount            DONE
 // extractValuesFromKey     DONE
@@ -15,7 +16,8 @@ import * as constants from '../src/constants'
 // broadcast                DONE
 // transferKey              DONE
 // fetchDevice              DONE
-// interactWithDevice
+// interactWithDevice       DONE
+// setScript                DONE
 // onBlockchainUpdate       DONE
 // generateKey              DONE
 // insertData               DONE
@@ -154,7 +156,8 @@ describe('e2e', () => {
       [
         { key: 'name', value: 'Adam' },
         { key: 'active', value: true },
-        { key: 'lat', value: '5.6345' }
+        { key: 'lat', value: '5.6345' },
+        { key: `key_${ctx.key.assetId}`, value: 'active' }
       ],
       ctx.device.seed
     )
@@ -164,5 +167,15 @@ describe('e2e', () => {
     expect(device.name).toBe('Adam')
     expect(device.active).toBe(true)
     expect(device.location?.lat).toBe(5.6345)
+    expect((device as any)[`key_${ctx.key.assetId}`]).toBeUndefined()
+  })
+
+  it('setScript', async () => {
+    const script = readFileSync('./spec/fixtures/dapp.base64.txt').toString()
+    await lib.setScript(script, ctx.dapp.seed)
+  })
+
+  it('interactWithDevice', async () => {
+    await lib.interactWithDevice(ctx.key.assetId, ctx.dapp.address, 'open', ctx.user.seed)
   })
 })

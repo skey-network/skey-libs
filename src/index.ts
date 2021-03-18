@@ -49,7 +49,9 @@ export const getInstance = (config: Config) => {
         chainId: config.chainId
       }),
     insertData: (entries: Entry[], seed: string) =>
-      Write.insertData(entries, seed, { broadcast, chainId: config.chainId })
+      Write.insertData(entries, seed, { broadcast, chainId: config.chainId }),
+    setScript: (script: string, seed: string) =>
+      Write.setScript(script, seed, { broadcast, chainId: config.chainId })
   }
 }
 

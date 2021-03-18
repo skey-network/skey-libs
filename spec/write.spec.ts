@@ -3,6 +3,7 @@ import * as Transactions from '@waves/waves-transactions'
 import * as Crypto from '@waves/ts-lib-crypto'
 import * as helper from './helper'
 import { TRANSACTION_TYPE } from '@waves/waves-transactions/dist/transactions'
+import { readFileSync } from 'fs'
 
 describe('write', () => {
   describe('constants', () => {
@@ -150,6 +151,31 @@ describe('write', () => {
           chainId: helper.config.chainId
         }
       )
+    })
+  })
+
+  describe('setScript', () => {
+    it('broadcast correct tx', async () => {
+      const dapp = helper.createAccount()
+      const script = readFileSync('./spec/fixtures/dapp.base64.txt').toString()
+
+      const mockBroadcast = async (tx: Transactions.TTx) => {
+        const stx = tx as Transactions.ISetScriptTransaction
+
+        expect(stx.chainId).toBe(helper.config.chainId.charCodeAt(0))
+        expect(stx.fee).toBe(14 * helper.config.feeMultiplier)
+        expect(stx.type).toBe(TRANSACTION_TYPE.SET_SCRIPT)
+        expect(stx.proofs[0]).toBeDefined()
+        expect(stx.senderPublicKey).toBe(Crypto.publicKey(dapp.seed))
+        expect(stx.script?.replace('base64:', '')).toBe(script)
+
+        return ''
+      }
+
+      await Write.setScript(script, dapp.seed, {
+        broadcast: mockBroadcast,
+        chainId: helper.config.chainId
+      })
     })
   })
 })
