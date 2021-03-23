@@ -19,6 +19,44 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const utils = __importStar(require("./utils"));
-exports.default = { ...utils };
+exports.getInstance = void 0;
+const Utils = __importStar(require("./utils"));
+const Read = __importStar(require("./read"));
+const Write = __importStar(require("./write"));
+const getInstance = (config) => {
+    const request = (path) => Read.request(path, { baseUrl: config.nodeUrl });
+    const fetchDataWithRegex = (regex, address) => Read.fetchDataWithRegex(regex, address, { request });
+    const fetchHeight = () => Read.fetchHeight({ request });
+    const broadcast = (tx) => Write.broadcast(tx, { nodeUrl: config.nodeUrl });
+    return {
+        fetchHeight,
+        fetchKeyOwner: (assetId, height) => Read.fetchKeyOwner(assetId, height, { request }),
+        extractValuesFromKey: Utils.extractValuesFromKey,
+        request,
+        fetchDataWithRegex,
+        createAccount: () => Utils.createAccount({ chainId: config.chainId }),
+        fetchDevices: (address) => Read.fetchDevices(address, { fetchDataWithRegex }),
+        fetchKeyWhitelist: (address) => Read.fetchKeyWhitellist(address, { fetchDataWithRegex }),
+        waitForNBlocks: (amount, interval = 500) => Utils.waitForNBlocks(amount, interval, { fetchHeight }),
+        delay: Utils.delay,
+        FEE_MULTIPLIER: Write.FEE_MULTIPLIER,
+        WVS: Write.WVS,
+        broadcast,
+        transferKey: (receiver, assetId, seed) => Write.transferKey(receiver, assetId, seed, { broadcast, chainId: config.chainId }),
+        fetchDevice: (address) => Read.fetchDevice(address, { request }),
+        interactWithDevice: (key, dapp, action, seed) => Write.interactWithDevice(key, dapp, action, seed, {
+            broadcast,
+            chainId: config.chainId
+        }),
+        onBlockchainUpdate: (callback, interval = 500) => Utils.onBlockchainUpdate(callback, interval, { fetchHeight, delay: Utils.delay }),
+        generateKey: (device, validTo, seed, name = 'SmartKey') => Write.generateKey(device, validTo, seed, name, {
+            broadcast,
+            chainId: config.chainId
+        }),
+        insertData: (entries, seed) => Write.insertData(entries, seed, { broadcast, chainId: config.chainId }),
+        setScript: (script, seed) => Write.setScript(script, seed, { broadcast, chainId: config.chainId })
+    };
+};
+exports.getInstance = getInstance;
+exports.default = { getInstance: exports.getInstance };
 //# sourceMappingURL=index.js.map
