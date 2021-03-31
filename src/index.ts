@@ -62,7 +62,8 @@ export const getInstance = (config: Config) => {
       Write.interactWithDeviceAs(key, dapp, action, seed, fromAddress, {
         broadcast,
         chainId: config.chainId
-      })
+      }),
+    fetchKey: (assetId: string) => Read.fetchKey(assetId, { request })
   }
 }
 

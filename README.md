@@ -74,3 +74,6 @@ npm test
   send data transaction to address
 - ### **setScript**
   set base64 script on address
+- ### **fetchKey**
+  fetch key details by assetId
+  

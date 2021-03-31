@@ -41,6 +41,18 @@ describe('read', () => {
     })
   })
 
+  describe('fetchKey', () => {
+    it('calls correct path', async () => {
+      const mockRequest = async (path: string) => {
+        expect(path).toBe('/assets/details/aaa')
+        return 10
+      }
+
+      const res = await Read.fetchKey('aaa', { request: mockRequest })
+      expect(res).toBe(10)
+    })
+  })
+
   describe('request', () => {
     it('returns response', async () => {
       const { address } = helper.createAccount()

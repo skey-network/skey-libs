@@ -118,3 +118,9 @@ export const fetchKeyWhitellist = async (
     status: entry.value as string
   }))
 }
+
+export type FetchKeyDeps = WithRequest
+export const fetchKey = async (assetId: string, deps: FetchKeyDeps): Promise<any> => {
+  const path = `/assets/details/${assetId}`
+  return await deps.request(path)
+}

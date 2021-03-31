@@ -75,6 +75,13 @@ describe('e2e', () => {
     )
   })
 
+  it('fetchKey', async () => {
+    const res = await lib.fetchKey(ctx.key.assetId)
+
+    expect(res.assetId).toBe(ctx.key.assetId)
+    expect(res.issuer).toBe(ctx.dapp.address)
+  })
+
   it('transferKey', async () => {
     await lib.transferKey(ctx.user.address, ctx.key.assetId, ctx.dapp.seed)
   })
