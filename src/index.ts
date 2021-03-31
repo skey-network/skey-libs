@@ -1,3 +1,4 @@
+import './types'
 import * as Utils from './utils'
 import * as Read from './read'
 import * as Write from './write'

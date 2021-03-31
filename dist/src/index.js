@@ -20,6 +20,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getInstance = void 0;
+require("./types");
 const Utils = __importStar(require("./utils"));
 const Read = __importStar(require("./read"));
 const Write = __importStar(require("./write"));

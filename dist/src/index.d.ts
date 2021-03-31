@@ -1,3 +1,4 @@
+import './types';
 import * as Transactions from '@waves/waves-transactions';
 export interface Config {
     nodeUrl: string;
