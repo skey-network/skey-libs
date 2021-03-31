@@ -19,4 +19,6 @@ export declare type InsertDataDeps = TxDeps;
 export declare const insertData: (entries: Entry[], seed: string, deps: InsertDataDeps) => Promise<string>;
 export declare type SetScriptDeps = TxDeps;
 export declare const setScript: (script: string, seed: string, deps: SetScriptDeps) => Promise<string>;
+export declare type InteractWithDeviceAsDeps = TxDeps;
+export declare const interactWithDeviceAs: (key: string, dapp: string, action: string, seed: string, fromAddress: string, deps: InteractWithDeviceDeps) => Promise<string>;
 export {};

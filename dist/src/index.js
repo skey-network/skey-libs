@@ -54,7 +54,12 @@ const getInstance = (config) => {
             chainId: config.chainId
         }),
         insertData: (entries, seed) => Write.insertData(entries, seed, { broadcast, chainId: config.chainId }),
-        setScript: (script, seed) => Write.setScript(script, seed, { broadcast, chainId: config.chainId })
+        setScript: (script, seed) => Write.setScript(script, seed, { broadcast, chainId: config.chainId }),
+        interactWithDeviceAs: (key, dapp, action, seed, fromAddress) => Write.interactWithDeviceAs(key, dapp, action, seed, fromAddress, {
+            broadcast,
+            chainId: config.chainId
+        }),
+        fetchKey: (assetId) => Read.fetchKey(assetId, { request })
     };
 };
 exports.getInstance = getInstance;

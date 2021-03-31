@@ -19,7 +19,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.setScript = exports.insertData = exports.generateKey = exports.interactWithDevice = exports.transferKey = exports.broadcast = exports.WVS = exports.FEE_MULTIPLIER = void 0;
+exports.interactWithDeviceAs = exports.setScript = exports.insertData = exports.generateKey = exports.interactWithDevice = exports.transferKey = exports.broadcast = exports.WVS = exports.FEE_MULTIPLIER = void 0;
 const Transactions = __importStar(require("@waves/waves-transactions"));
 exports.FEE_MULTIPLIER = 10 ** 5;
 exports.WVS = 10 ** 8;
@@ -93,4 +93,23 @@ const setScript = async (script, seed, deps) => {
     return await deps.broadcast(tx);
 };
 exports.setScript = setScript;
+const interactWithDeviceAs = async (key, dapp, action, seed, fromAddress, deps) => {
+    const FUNC_NAME = 'deviceActionAs';
+    const params = {
+        dApp: dapp,
+        call: {
+            function: FUNC_NAME,
+            args: [
+                { type: 'string', value: key },
+                { type: 'string', value: action },
+                { type: 'string', value: fromAddress }
+            ]
+        },
+        fee: 9 * exports.FEE_MULTIPLIER,
+        chainId: deps.chainId
+    };
+    const tx = Transactions.invokeScript(params, seed);
+    return await deps.broadcast(tx);
+};
+exports.interactWithDeviceAs = interactWithDeviceAs;
 //# sourceMappingURL=write.js.map

@@ -22,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fetchKeyWhitellist = exports.fetchDevices = exports.fetchDataWithRegex = exports.request = exports.fetchHeight = exports.fetchKeyOwner = exports.fetchDevice = void 0;
+exports.fetchKey = exports.fetchKeyWhitellist = exports.fetchDevices = exports.fetchDataWithRegex = exports.request = exports.fetchHeight = exports.fetchKeyOwner = exports.fetchDevice = void 0;
 const node_fetch_1 = __importDefault(require("node-fetch"));
 const constants_1 = require("./constants");
 const constants = __importStar(require("../src/constants"));
@@ -103,4 +103,9 @@ const fetchKeyWhitellist = async (address, deps) => {
     }));
 };
 exports.fetchKeyWhitellist = fetchKeyWhitellist;
+const fetchKey = async (assetId, deps) => {
+    const path = `/assets/details/${assetId}`;
+    return await deps.request(path);
+};
+exports.fetchKey = fetchKey;
 //# sourceMappingURL=read.js.map

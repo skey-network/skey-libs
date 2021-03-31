@@ -27,4 +27,6 @@ export declare const fetchKeyWhitellist: (address: string, deps: FetchKeyWhiteli
     assetId: string;
     status: string;
 }[]>;
+export declare type FetchKeyDeps = WithRequest;
+export declare const fetchKey: (assetId: string, deps: FetchKeyDeps) => Promise<any>;
 export {};
