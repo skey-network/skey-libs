@@ -7,7 +7,7 @@
   "scripts": {
     "test": "jest --config ./test.config.json",
     "test:watch": "jest --watch --config ./test.config.json",
-    "build": "rm -rf && tsc --declaration",
+    "build": "rm -rf dist && tsc --declaration",
     "start": "ts-node src/index.ts"
   },
   "keywords": [],
