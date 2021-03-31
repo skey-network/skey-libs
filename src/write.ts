@@ -110,3 +110,32 @@ export const setScript = async (script: string, seed: string, deps: SetScriptDep
   const tx = Transactions.setScript(params, seed)
   return await deps.broadcast(tx)
 }
+
+export type InteractWithDeviceAsDeps = TxDeps
+export const interactWithDeviceAs = async (
+  key: string,
+  dapp: string,
+  action: string,
+  seed: string,
+  fromAddress: string,
+  deps: InteractWithDeviceDeps
+) => {
+  const FUNC_NAME = 'deviceActionAs'
+
+  const params: Transactions.IInvokeScriptParams = {
+    dApp: dapp,
+    call: {
+      function: FUNC_NAME,
+      args: [
+        { type: 'string', value: key },
+        { type: 'string', value: action },
+        { type: 'string', value: fromAddress }
+      ]
+    },
+    fee: 9 * FEE_MULTIPLIER,
+    chainId: deps.chainId
+  }
+
+  const tx = Transactions.invokeScript(params, seed)
+  return await deps.broadcast(tx)
+}

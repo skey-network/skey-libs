@@ -21,6 +21,7 @@ import { readFileSync } from 'fs'
 // onBlockchainUpdate       DONE
 // generateKey              DONE
 // insertData               DONE
+// interactWithDeviceAs
 
 const ctx = {
   dapp: {
@@ -32,6 +33,10 @@ const ctx = {
     seed: ''
   },
   user: {
+    address: '',
+    seed: ''
+  },
+  org: {
     address: '',
     seed: ''
   },
@@ -50,11 +55,13 @@ describe('e2e', () => {
     ctx.dapp = lib.createAccount()
     ctx.device = lib.createAccount()
     ctx.user = lib.createAccount()
+    ctx.org = lib.createAccount()
 
     await Promise.all([
       helper.fund(ctx.dapp.address),
       helper.fund(ctx.device.address),
-      helper.fund(ctx.user.address)
+      helper.fund(ctx.user.address),
+      helper.fund(ctx.org.address)
     ])
   })
 
@@ -177,5 +184,27 @@ describe('e2e', () => {
 
   it('interactWithDevice', async () => {
     await lib.interactWithDevice(ctx.key.assetId, ctx.dapp.address, 'open', ctx.user.seed)
+  })
+
+  it('interactWithDeviceAs', async () => {
+    await Promise.all([
+      lib.insertData(
+        [{ key: `org_${ctx.org.address}`, value: 'active', type: 'string' }],
+        ctx.dapp.seed
+      ),
+      lib.insertData(
+        [{ key: `user_${ctx.user.address}`, value: 'active', type: 'string' }],
+        ctx.org.seed
+      ),
+      lib.transferKey(ctx.org.address, ctx.key.assetId, ctx.user.seed)
+    ])
+
+    await lib.interactWithDeviceAs(
+      ctx.key.assetId,
+      ctx.dapp.address,
+      'open',
+      ctx.user.seed,
+      ctx.org.address
+    )
   })
 })

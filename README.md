@@ -64,6 +64,8 @@ npm test
   fetches device data of address  
 - ### **interactWithDevice**  
   invoke deviceAction function on device
+- ### **interactWithDeviceAs**  
+  invoke deviceActionAs function on device
 - ### **onBlockchainUpdate**
   listener function that fires callback when new block is mined
 - ### **generateKey**

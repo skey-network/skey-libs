@@ -25,10 +25,11 @@ describe('index', () => {
     expect(lib.generateKey).toBeDefined()
     expect(lib.insertData).toBeDefined()
     expect(lib.setScript).toBeDefined()
+    expect(lib.interactWithDeviceAs).toBeDefined()
   })
 
   it('contains exact number of properties', async () => {
-    const EXPECTED = 20
+    const EXPECTED = 21
     const no = Object.keys(lib).length
 
     expect(no).toBe(EXPECTED)

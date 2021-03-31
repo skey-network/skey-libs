@@ -88,6 +88,43 @@ describe('write', () => {
     })
   })
 
+  describe('interactWithDevice', () => {
+    it('broadcast correct tx', async () => {
+      const dapp = helper.createAccount()
+      const fromAddress = helper.createAccount()
+      const sender = helper.createAccount()
+
+      const mockBroadcast = async (tx: Transactions.TTx) => {
+        const itx = tx as Transactions.IInvokeScriptTransaction
+
+        expect(itx.dApp).toBe(dapp.address)
+        expect(itx.call?.function).toBe('deviceActionAs')
+        expect(itx.call?.args[0]).toEqual({ type: 'string', value: 'key' })
+        expect(itx.call?.args[1]).toEqual({ type: 'string', value: 'action' })
+        expect(itx.call?.args[2]).toEqual({ type: 'string', value: fromAddress.address })
+        expect(itx.chainId).toBe(helper.config.chainId.charCodeAt(0))
+        expect(itx.fee).toBe(9 * helper.config.feeMultiplier)
+        expect(itx.type).toBe(TRANSACTION_TYPE.INVOKE_SCRIPT)
+        expect(itx.proofs[0]).toBeDefined()
+        expect(itx.senderPublicKey).toBe(Crypto.publicKey(sender.seed))
+
+        return ''
+      }
+
+      await Write.interactWithDeviceAs(
+        'key',
+        dapp.address,
+        'action',
+        sender.seed,
+        fromAddress.address,
+        {
+          broadcast: mockBroadcast,
+          chainId: helper.config.chainId
+        }
+      )
+    })
+  })
+
   describe('generateKey', () => {
     it('broadcast correct tx', async () => {
       const dapp = helper.createAccount()

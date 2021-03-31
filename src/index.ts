@@ -51,7 +51,18 @@ export const getInstance = (config: Config) => {
     insertData: (entries: Entry[], seed: string) =>
       Write.insertData(entries, seed, { broadcast, chainId: config.chainId }),
     setScript: (script: string, seed: string) =>
-      Write.setScript(script, seed, { broadcast, chainId: config.chainId })
+      Write.setScript(script, seed, { broadcast, chainId: config.chainId }),
+    interactWithDeviceAs: (
+      key: string,
+      dapp: string,
+      action: string,
+      seed: string,
+      fromAddress: string
+    ) =>
+      Write.interactWithDeviceAs(key, dapp, action, seed, fromAddress, {
+        broadcast,
+        chainId: config.chainId
+      })
   }
 }
 
