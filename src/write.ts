@@ -139,3 +139,21 @@ export const interactWithDeviceAs = async (
   const tx = Transactions.invokeScript(params, seed)
   return await deps.broadcast(tx)
 }
+
+export type TransferDeps = TxDeps
+export const transfer = async (
+  receiver: string,
+  amount: number,
+  seed: string,
+  deps: TransferKeyDeps
+) => {
+  const params: Transactions.ITransferParams = {
+    recipient: receiver,
+    amount: Math.floor(amount * WVS),
+    chainId: deps.chainId,
+    fee: 5 * FEE_MULTIPLIER
+  }
+
+  const tx = Transactions.transfer(params, seed)
+  return await deps.broadcast(tx)
+}

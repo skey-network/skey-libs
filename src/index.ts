@@ -64,7 +64,9 @@ export const getInstance = (config: Config) => {
         broadcast,
         chainId: config.chainId
       }),
-    fetchKey: (assetId: string) => Read.fetchKey(assetId, { request })
+    fetchKey: (assetId: string) => Read.fetchKey(assetId, { request }),
+    transfer: (receiver: string, amount: number, seed: string) =>
+      Write.transfer(receiver, amount, seed, { broadcast, chainId: config.chainId })
   }
 }
 

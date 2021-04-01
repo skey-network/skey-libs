@@ -70,6 +70,27 @@ describe('write', () => {
             });
         });
     });
+    describe('transfer', () => {
+        it('broadcasts correct tx', async () => {
+            const receiver = helper.createAccount();
+            const sender = helper.createAccount();
+            const mockBroadcast = async (tx) => {
+                const ttx = tx;
+                expect(ttx.amount).toBe(10000000000);
+                expect(ttx.recipient).toBe(receiver.address);
+                expect(ttx.fee).toBe(5 * helper.config.feeMultiplier);
+                expect(ttx.proofs[0]).toBeDefined();
+                expect(ttx.type).toBe(transactions_1.TRANSACTION_TYPE.TRANSFER);
+                expect(ttx.chainId).toBe(helper.config.chainId.charCodeAt(0));
+                expect(ttx.senderPublicKey).toBe(Crypto.publicKey(sender.seed));
+                return '';
+            };
+            await Write.transfer(receiver.address, 100, sender.seed, {
+                broadcast: mockBroadcast,
+                chainId: helper.config.chainId
+            });
+        });
+    });
     describe('interactWithDevice', () => {
         it('broadcast correct tx', async () => {
             const dapp = helper.createAccount();

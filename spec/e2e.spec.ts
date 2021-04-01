@@ -21,7 +21,8 @@ import { readFileSync } from 'fs'
 // onBlockchainUpdate       DONE
 // generateKey              DONE
 // insertData               DONE
-// interactWithDeviceAs
+// interactWithDeviceAs     DONE
+// transfer                 DONE
 
 const ctx = {
   dapp: {
@@ -63,6 +64,10 @@ describe('e2e', () => {
       helper.fund(ctx.user.address),
       helper.fund(ctx.org.address)
     ])
+  })
+
+  it('transfer', async () => {
+    await lib.transfer(ctx.user.address, 0.1, ctx.dapp.seed)
   })
 
   it('generateKey', async () => {

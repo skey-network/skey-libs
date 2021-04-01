@@ -27,9 +27,10 @@ describe('index', () => {
         expect(lib.setScript).toBeDefined();
         expect(lib.interactWithDeviceAs).toBeDefined();
         expect(lib.fetchKey).toBeDefined();
+        expect(lib.transfer).toBeDefined();
     });
     it('contains exact number of properties', async () => {
-        const EXPECTED = 22;
+        const EXPECTED = 23;
         const no = Object.keys(lib).length;
         expect(no).toBe(EXPECTED);
     });

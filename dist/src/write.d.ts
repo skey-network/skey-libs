@@ -21,4 +21,6 @@ export declare type SetScriptDeps = TxDeps;
 export declare const setScript: (script: string, seed: string, deps: SetScriptDeps) => Promise<string>;
 export declare type InteractWithDeviceAsDeps = TxDeps;
 export declare const interactWithDeviceAs: (key: string, dapp: string, action: string, seed: string, fromAddress: string, deps: InteractWithDeviceDeps) => Promise<string>;
+export declare type TransferDeps = TxDeps;
+export declare const transfer: (receiver: string, amount: number, seed: string, deps: TransferKeyDeps) => Promise<string>;
 export {};

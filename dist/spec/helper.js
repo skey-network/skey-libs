@@ -57,7 +57,7 @@ const generateKey = async (device, validTo, seed = exports.config.seed) => {
     return await exports.broadcast(tx);
 };
 exports.generateKey = generateKey;
-const fund = async (address, amount = 0.1 * exports.config.wvs) => {
+const fund = async (address, amount = 1 * exports.config.wvs) => {
     const params = {
         recipient: address,
         amount,

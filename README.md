@@ -76,4 +76,5 @@ npm test
   set base64 script on address
 - ### **fetchKey**
   fetch key details by assetId
-  
+- ### **transfer**
+  transfer native tokens to address

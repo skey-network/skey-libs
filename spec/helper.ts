@@ -43,7 +43,7 @@ export const generateKey = async (
   return await broadcast(tx)
 }
 
-export const fund = async (address: string, amount = 0.1 * config.wvs) => {
+export const fund = async (address: string, amount = 1 * config.wvs) => {
   const params: Transactions.ITransferParams = {
     recipient: address,
     amount,

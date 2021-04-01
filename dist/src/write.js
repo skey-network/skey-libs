@@ -19,7 +19,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.interactWithDeviceAs = exports.setScript = exports.insertData = exports.generateKey = exports.interactWithDevice = exports.transferKey = exports.broadcast = exports.WVS = exports.FEE_MULTIPLIER = void 0;
+exports.transfer = exports.interactWithDeviceAs = exports.setScript = exports.insertData = exports.generateKey = exports.interactWithDevice = exports.transferKey = exports.broadcast = exports.WVS = exports.FEE_MULTIPLIER = void 0;
 const Transactions = __importStar(require("@waves/waves-transactions"));
 exports.FEE_MULTIPLIER = 10 ** 5;
 exports.WVS = 10 ** 8;
@@ -112,4 +112,15 @@ const interactWithDeviceAs = async (key, dapp, action, seed, fromAddress, deps) 
     return await deps.broadcast(tx);
 };
 exports.interactWithDeviceAs = interactWithDeviceAs;
+const transfer = async (receiver, amount, seed, deps) => {
+    const params = {
+        recipient: receiver,
+        amount: Math.floor(amount * exports.WVS),
+        chainId: deps.chainId,
+        fee: 5 * exports.FEE_MULTIPLIER
+    };
+    const tx = Transactions.transfer(params, seed);
+    return await deps.broadcast(tx);
+};
+exports.transfer = transfer;
 //# sourceMappingURL=write.js.map

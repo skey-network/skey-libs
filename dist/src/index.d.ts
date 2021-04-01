@@ -43,6 +43,7 @@ export declare const getInstance: (config: Config) => {
     setScript: (script: string, seed: string) => Promise<string>;
     interactWithDeviceAs: (key: string, dapp: string, action: string, seed: string, fromAddress: string) => Promise<string>;
     fetchKey: (assetId: string) => Promise<any>;
+    transfer: (receiver: string, amount: number, seed: string) => Promise<string>;
 };
 declare const _default: {
     getInstance: (config: Config) => {
@@ -84,6 +85,7 @@ declare const _default: {
         setScript: (script: string, seed: string) => Promise<string>;
         interactWithDeviceAs: (key: string, dapp: string, action: string, seed: string, fromAddress: string) => Promise<string>;
         fetchKey: (assetId: string) => Promise<any>;
+        transfer: (receiver: string, amount: number, seed: string) => Promise<string>;
     };
 };
 export default _default;
