@@ -43,8 +43,21 @@ describe('write', () => {
                 fee: 5 * helper.config.feeMultiplier
             };
             const tx = Transactions.transfer(params, helper.config.seed);
-            const txHash = await Write.broadcast(tx, { nodeUrl: helper.config.nodeUrl });
+            const txHash = await Write.broadcast(tx, {}, { nodeUrl: helper.config.nodeUrl });
             expect(typeof txHash).toBe('string');
+        });
+        it('does not wait for tx when specified', async () => {
+            const params = {
+                recipient: helper.createAccount().address,
+                amount: 100,
+                chainId: helper.config.chainId,
+                fee: 5 * helper.config.feeMultiplier
+            };
+            const spy = jest.spyOn(Write, 'waitForTx');
+            const tx = Transactions.transfer(params, helper.config.seed);
+            const txHash = await Write.broadcast(tx, { waitForTx: false }, { nodeUrl: helper.config.nodeUrl });
+            expect(typeof txHash).toBe('string');
+            expect(spy).toHaveBeenCalledTimes(0);
         });
     });
     describe('transferKey', () => {
@@ -64,7 +77,7 @@ describe('write', () => {
                 expect(ttx.senderPublicKey).toBe(Crypto.publicKey(sender.seed));
                 return '';
             };
-            await Write.transferKey(receiver.address, assetId, sender.seed, {
+            await Write.transferKey(receiver.address, assetId, sender.seed, {}, {
                 broadcast: mockBroadcast,
                 chainId: helper.config.chainId
             });
@@ -85,7 +98,7 @@ describe('write', () => {
                 expect(ttx.senderPublicKey).toBe(Crypto.publicKey(sender.seed));
                 return '';
             };
-            await Write.transfer(receiver.address, 100, sender.seed, {
+            await Write.transfer(receiver.address, 100, sender.seed, {}, {
                 broadcast: mockBroadcast,
                 chainId: helper.config.chainId
             });
@@ -109,13 +122,13 @@ describe('write', () => {
                 expect(itx.senderPublicKey).toBe(Crypto.publicKey(sender.seed));
                 return '';
             };
-            await Write.interactWithDevice('key', dapp.address, 'action', sender.seed, {
+            await Write.interactWithDevice('key', dapp.address, 'action', sender.seed, {}, {
                 broadcast: mockBroadcast,
                 chainId: helper.config.chainId
             });
         });
     });
-    describe('interactWithDevice', () => {
+    describe('interactWithDeviceAs', () => {
         it('broadcast correct tx', async () => {
             const dapp = helper.createAccount();
             const fromAddress = helper.createAccount();
@@ -135,7 +148,7 @@ describe('write', () => {
                 expect(itx.senderPublicKey).toBe(Crypto.publicKey(sender.seed));
                 return '';
             };
-            await Write.interactWithDeviceAs('key', dapp.address, 'action', sender.seed, fromAddress.address, {
+            await Write.interactWithDeviceAs('key', dapp.address, 'action', sender.seed, fromAddress.address, {}, {
                 broadcast: mockBroadcast,
                 chainId: helper.config.chainId
             });
@@ -159,7 +172,7 @@ describe('write', () => {
                 expect(itx.description.split('_')[1]).toBe('111');
                 return '';
             };
-            await Write.generateKey('aaa', 111, dapp.seed, 'SmartKey', {
+            await Write.generateKey('aaa', 111, dapp.seed, 'SmartKey', {}, {
                 broadcast: mockBroadcast,
                 chainId: helper.config.chainId
             });
@@ -186,7 +199,7 @@ describe('write', () => {
                 { key: 'integer', value: 1 },
                 { key: 'string', value: 'aaa' },
                 { key: 'boolean', value: true }
-            ], dapp.seed, {
+            ], dapp.seed, {}, {
                 broadcast: mockBroadcast,
                 chainId: helper.config.chainId
             });
@@ -207,7 +220,7 @@ describe('write', () => {
                 expect((_a = stx.script) === null || _a === void 0 ? void 0 : _a.replace('base64:', '')).toBe(script);
                 return '';
             };
-            await Write.setScript(script, dapp.seed, {
+            await Write.setScript(script, dapp.seed, {}, {
                 broadcast: mockBroadcast,
                 chainId: helper.config.chainId
             });

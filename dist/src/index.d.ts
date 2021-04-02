@@ -1,4 +1,5 @@
 import './types';
+import * as Write from './write';
 import * as Transactions from '@waves/waves-transactions';
 export interface Config {
     nodeUrl: string;
@@ -31,19 +32,19 @@ export declare const getInstance: (config: Config) => {
     delay: (timeout: number) => Promise<void>;
     FEE_MULTIPLIER: number;
     WVS: number;
-    broadcast: (tx: Transactions.TTx) => Promise<string>;
-    transferKey: (receiver: string, assetId: string, seed: string) => Promise<string>;
+    broadcast: (tx: Transactions.TTx, options?: Write.TxOptions | undefined) => Promise<string>;
+    transferKey: (receiver: string, assetId: string, seed: string, options?: Write.TxOptions) => Promise<string>;
     fetchDevice: (address: string) => Promise<Device>;
-    interactWithDevice: (key: string, dapp: string, action: string, seed: string) => Promise<string>;
+    interactWithDevice: (key: string, dapp: string, action: string, seed: string, options?: Write.TxOptions) => Promise<string>;
     onBlockchainUpdate: (callback: (height: number) => any, interval?: number) => Promise<void> & {
         cancel: () => Promise<void>;
     };
-    generateKey: (device: string, validTo: number, seed: string, name?: string) => Promise<string>;
-    insertData: (entries: Entry[], seed: string) => Promise<string>;
-    setScript: (script: string, seed: string) => Promise<string>;
-    interactWithDeviceAs: (key: string, dapp: string, action: string, seed: string, fromAddress: string) => Promise<string>;
+    generateKey: (device: string, validTo: number, seed: string, name?: string, options?: Write.TxOptions) => Promise<string>;
+    insertData: (entries: Entry[], seed: string, options?: Write.TxOptions) => Promise<string>;
+    setScript: (script: string, seed: string, options?: Write.TxOptions) => Promise<string>;
+    interactWithDeviceAs: (key: string, dapp: string, action: string, seed: string, fromAddress: string, options?: Write.TxOptions) => Promise<string>;
     fetchKey: (assetId: string) => Promise<any>;
-    transfer: (receiver: string, amount: number, seed: string) => Promise<string>;
+    transfer: (receiver: string, amount: number, seed: string, options?: Write.TxOptions) => Promise<string>;
 };
 declare const _default: {
     getInstance: (config: Config) => {
@@ -73,19 +74,19 @@ declare const _default: {
         delay: (timeout: number) => Promise<void>;
         FEE_MULTIPLIER: number;
         WVS: number;
-        broadcast: (tx: Transactions.TTx<string | number>) => Promise<string>;
-        transferKey: (receiver: string, assetId: string, seed: string) => Promise<string>;
+        broadcast: (tx: Transactions.TTx<string | number>, options?: Write.TxOptions | undefined) => Promise<string>;
+        transferKey: (receiver: string, assetId: string, seed: string, options?: Write.TxOptions) => Promise<string>;
         fetchDevice: (address: string) => Promise<Device>;
-        interactWithDevice: (key: string, dapp: string, action: string, seed: string) => Promise<string>;
+        interactWithDevice: (key: string, dapp: string, action: string, seed: string, options?: Write.TxOptions) => Promise<string>;
         onBlockchainUpdate: (callback: (height: number) => any, interval?: number) => Promise<void> & {
             cancel: () => Promise<void>;
         };
-        generateKey: (device: string, validTo: number, seed: string, name?: string) => Promise<string>;
-        insertData: (entries: Entry[], seed: string) => Promise<string>;
-        setScript: (script: string, seed: string) => Promise<string>;
-        interactWithDeviceAs: (key: string, dapp: string, action: string, seed: string, fromAddress: string) => Promise<string>;
+        generateKey: (device: string, validTo: number, seed: string, name?: string, options?: Write.TxOptions) => Promise<string>;
+        insertData: (entries: Entry[], seed: string, options?: Write.TxOptions) => Promise<string>;
+        setScript: (script: string, seed: string, options?: Write.TxOptions) => Promise<string>;
+        interactWithDeviceAs: (key: string, dapp: string, action: string, seed: string, fromAddress: string, options?: Write.TxOptions) => Promise<string>;
         fetchKey: (assetId: string) => Promise<any>;
-        transfer: (receiver: string, amount: number, seed: string) => Promise<string>;
+        transfer: (receiver: string, amount: number, seed: string, options?: Write.TxOptions) => Promise<string>;
     };
 };
 export default _default;

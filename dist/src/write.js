@@ -19,17 +19,21 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.transfer = exports.interactWithDeviceAs = exports.setScript = exports.insertData = exports.generateKey = exports.interactWithDevice = exports.transferKey = exports.broadcast = exports.WVS = exports.FEE_MULTIPLIER = void 0;
+exports.transfer = exports.interactWithDeviceAs = exports.setScript = exports.insertData = exports.generateKey = exports.interactWithDevice = exports.transferKey = exports.broadcast = exports.waitForTx = exports.WVS = exports.FEE_MULTIPLIER = void 0;
 const Transactions = __importStar(require("@waves/waves-transactions"));
 exports.FEE_MULTIPLIER = 10 ** 5;
 exports.WVS = 10 ** 8;
-const broadcast = async (tx, deps) => {
+exports.waitForTx = Transactions.waitForTx;
+const broadcast = async (tx, options, deps) => {
     const ttx = await Transactions.broadcast(tx, deps.nodeUrl);
-    await Transactions.waitForTx(ttx.id, { apiBase: deps.nodeUrl });
+    const wait = options.waitForTx === undefined ? true : options.waitForTx;
+    if (wait) {
+        await exports.waitForTx(ttx.id, { apiBase: deps.nodeUrl });
+    }
     return ttx.id;
 };
 exports.broadcast = broadcast;
-const transferKey = async (receiver, assetId, seed, deps) => {
+const transferKey = async (receiver, assetId, seed, options, deps) => {
     const params = {
         recipient: receiver,
         amount: 1,
@@ -38,10 +42,10 @@ const transferKey = async (receiver, assetId, seed, deps) => {
         fee: 5 * exports.FEE_MULTIPLIER
     };
     const tx = Transactions.transfer(params, seed);
-    return await deps.broadcast(tx);
+    return await deps.broadcast(tx, options);
 };
 exports.transferKey = transferKey;
-const interactWithDevice = async (key, dapp, action, seed, deps) => {
+const interactWithDevice = async (key, dapp, action, seed, options, deps) => {
     const FUNC_NAME = 'deviceAction';
     const params = {
         dApp: dapp,
@@ -56,10 +60,10 @@ const interactWithDevice = async (key, dapp, action, seed, deps) => {
         chainId: deps.chainId
     };
     const tx = Transactions.invokeScript(params, seed);
-    return await deps.broadcast(tx);
+    return await deps.broadcast(tx, options);
 };
 exports.interactWithDevice = interactWithDevice;
-const generateKey = async (device, validTo, seed, name = 'SmartKey', deps) => {
+const generateKey = async (device, validTo, seed, name = 'SmartKey', options, deps) => {
     const params = {
         decimals: 0,
         reissuable: false,
@@ -70,30 +74,30 @@ const generateKey = async (device, validTo, seed, name = 'SmartKey', deps) => {
         fee: 5 * exports.FEE_MULTIPLIER
     };
     const tx = Transactions.issue(params, seed);
-    return await deps.broadcast(tx);
+    return await deps.broadcast(tx, options);
 };
 exports.generateKey = generateKey;
-const insertData = async (entries, seed, deps) => {
+const insertData = async (entries, seed, options, deps) => {
     const params = {
         data: entries,
         fee: 5 * exports.FEE_MULTIPLIER,
         chainId: deps.chainId
     };
     const tx = Transactions.data(params, seed);
-    return await deps.broadcast(tx);
+    return await deps.broadcast(tx, options);
 };
 exports.insertData = insertData;
-const setScript = async (script, seed, deps) => {
+const setScript = async (script, seed, options, deps) => {
     const params = {
         script,
         fee: 14 * exports.FEE_MULTIPLIER,
         chainId: deps.chainId
     };
     const tx = Transactions.setScript(params, seed);
-    return await deps.broadcast(tx);
+    return await deps.broadcast(tx, options);
 };
 exports.setScript = setScript;
-const interactWithDeviceAs = async (key, dapp, action, seed, fromAddress, deps) => {
+const interactWithDeviceAs = async (key, dapp, action, seed, fromAddress, options, deps) => {
     const FUNC_NAME = 'deviceActionAs';
     const params = {
         dApp: dapp,
@@ -109,10 +113,10 @@ const interactWithDeviceAs = async (key, dapp, action, seed, fromAddress, deps) 
         chainId: deps.chainId
     };
     const tx = Transactions.invokeScript(params, seed);
-    return await deps.broadcast(tx);
+    return await deps.broadcast(tx, options);
 };
 exports.interactWithDeviceAs = interactWithDeviceAs;
-const transfer = async (receiver, amount, seed, deps) => {
+const transfer = async (receiver, amount, seed, options, deps) => {
     const params = {
         recipient: receiver,
         amount: Math.floor(amount * exports.WVS),
@@ -120,7 +124,7 @@ const transfer = async (receiver, amount, seed, deps) => {
         fee: 5 * exports.FEE_MULTIPLIER
     };
     const tx = Transactions.transfer(params, seed);
-    return await deps.broadcast(tx);
+    return await deps.broadcast(tx, options);
 };
 exports.transfer = transfer;
 //# sourceMappingURL=write.js.map

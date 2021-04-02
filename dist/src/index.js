@@ -28,7 +28,7 @@ const getInstance = (config) => {
     const request = (path) => Read.request(path, { baseUrl: config.nodeUrl });
     const fetchDataWithRegex = (regex, address) => Read.fetchDataWithRegex(regex, address, { request });
     const fetchHeight = () => Read.fetchHeight({ request });
-    const broadcast = (tx) => Write.broadcast(tx, { nodeUrl: config.nodeUrl });
+    const broadcast = (tx, options) => Write.broadcast(tx, (options = {}), { nodeUrl: config.nodeUrl });
     return {
         fetchHeight,
         fetchKeyOwner: (assetId, height) => Read.fetchKeyOwner(assetId, height, { request }),
@@ -43,25 +43,31 @@ const getInstance = (config) => {
         FEE_MULTIPLIER: Write.FEE_MULTIPLIER,
         WVS: Write.WVS,
         broadcast,
-        transferKey: (receiver, assetId, seed) => Write.transferKey(receiver, assetId, seed, { broadcast, chainId: config.chainId }),
+        transferKey: (receiver, assetId, seed, options = {}) => Write.transferKey(receiver, assetId, seed, options, {
+            broadcast,
+            chainId: config.chainId
+        }),
         fetchDevice: (address) => Read.fetchDevice(address, { request }),
-        interactWithDevice: (key, dapp, action, seed) => Write.interactWithDevice(key, dapp, action, seed, {
+        interactWithDevice: (key, dapp, action, seed, options = {}) => Write.interactWithDevice(key, dapp, action, seed, options, {
             broadcast,
             chainId: config.chainId
         }),
         onBlockchainUpdate: (callback, interval = 500) => Utils.onBlockchainUpdate(callback, interval, { fetchHeight, delay: Utils.delay }),
-        generateKey: (device, validTo, seed, name = 'SmartKey') => Write.generateKey(device, validTo, seed, name, {
+        generateKey: (device, validTo, seed, name = 'SmartKey', options = {}) => Write.generateKey(device, validTo, seed, name, options, {
             broadcast,
             chainId: config.chainId
         }),
-        insertData: (entries, seed) => Write.insertData(entries, seed, { broadcast, chainId: config.chainId }),
-        setScript: (script, seed) => Write.setScript(script, seed, { broadcast, chainId: config.chainId }),
-        interactWithDeviceAs: (key, dapp, action, seed, fromAddress) => Write.interactWithDeviceAs(key, dapp, action, seed, fromAddress, {
+        insertData: (entries, seed, options = {}) => Write.insertData(entries, seed, options, { broadcast, chainId: config.chainId }),
+        setScript: (script, seed, options = {}) => Write.setScript(script, seed, options, { broadcast, chainId: config.chainId }),
+        interactWithDeviceAs: (key, dapp, action, seed, fromAddress, options = {}) => Write.interactWithDeviceAs(key, dapp, action, seed, fromAddress, options, {
             broadcast,
             chainId: config.chainId
         }),
         fetchKey: (assetId) => Read.fetchKey(assetId, { request }),
-        transfer: (receiver, amount, seed) => Write.transfer(receiver, amount, seed, { broadcast, chainId: config.chainId })
+        transfer: (receiver, amount, seed, options = {}) => Write.transfer(receiver, amount, seed, options, {
+            broadcast,
+            chainId: config.chainId
+        })
     };
 };
 exports.getInstance = getInstance;
