@@ -14,8 +14,8 @@ export const getInstance = (config: Config) => {
   const fetchDataWithRegex = (regex: string, address: string) =>
     Read.fetchDataWithRegex(regex, address, { request })
   const fetchHeight = () => Read.fetchHeight({ request })
-  const broadcast = (tx: Transactions.TTx) =>
-    Write.broadcast(tx, { nodeUrl: config.nodeUrl })
+  const broadcast = (tx: Transactions.TTx, options?: Write.TxOptions) =>
+    Write.broadcast(tx, (options = {}), { nodeUrl: config.nodeUrl })
 
   return {
     fetchHeight,
@@ -34,39 +34,68 @@ export const getInstance = (config: Config) => {
     FEE_MULTIPLIER: Write.FEE_MULTIPLIER,
     WVS: Write.WVS,
     broadcast,
-    transferKey: (receiver: string, assetId: string, seed: string) =>
-      Write.transferKey(receiver, assetId, seed, { broadcast, chainId: config.chainId }),
+    transferKey: (
+      receiver: string,
+      assetId: string,
+      seed: string,
+      options: Write.TxOptions = {}
+    ) =>
+      Write.transferKey(receiver, assetId, seed, options, {
+        broadcast,
+        chainId: config.chainId
+      }),
     fetchDevice: (address: string) => Read.fetchDevice(address, { request }),
-    interactWithDevice: (key: string, dapp: string, action: string, seed: string) =>
-      Write.interactWithDevice(key, dapp, action, seed, {
+    interactWithDevice: (
+      key: string,
+      dapp: string,
+      action: string,
+      seed: string,
+      options: Write.TxOptions = {}
+    ) =>
+      Write.interactWithDevice(key, dapp, action, seed, options, {
         broadcast,
         chainId: config.chainId
       }),
     onBlockchainUpdate: (callback: (height: number) => any, interval = 500) =>
       Utils.onBlockchainUpdate(callback, interval, { fetchHeight, delay: Utils.delay }),
-    generateKey: (device: string, validTo: number, seed: string, name = 'SmartKey') =>
-      Write.generateKey(device, validTo, seed, name, {
+    generateKey: (
+      device: string,
+      validTo: number,
+      seed: string,
+      name = 'SmartKey',
+      options: Write.TxOptions = {}
+    ) =>
+      Write.generateKey(device, validTo, seed, name, options, {
         broadcast,
         chainId: config.chainId
       }),
-    insertData: (entries: Entry[], seed: string) =>
-      Write.insertData(entries, seed, { broadcast, chainId: config.chainId }),
-    setScript: (script: string, seed: string) =>
-      Write.setScript(script, seed, { broadcast, chainId: config.chainId }),
+    insertData: (entries: Entry[], seed: string, options: Write.TxOptions = {}) =>
+      Write.insertData(entries, seed, options, { broadcast, chainId: config.chainId }),
+    setScript: (script: string, seed: string, options: Write.TxOptions = {}) =>
+      Write.setScript(script, seed, options, { broadcast, chainId: config.chainId }),
     interactWithDeviceAs: (
       key: string,
       dapp: string,
       action: string,
       seed: string,
-      fromAddress: string
+      fromAddress: string,
+      options: Write.TxOptions = {}
     ) =>
-      Write.interactWithDeviceAs(key, dapp, action, seed, fromAddress, {
+      Write.interactWithDeviceAs(key, dapp, action, seed, fromAddress, options, {
         broadcast,
         chainId: config.chainId
       }),
     fetchKey: (assetId: string) => Read.fetchKey(assetId, { request }),
-    transfer: (receiver: string, amount: number, seed: string) =>
-      Write.transfer(receiver, amount, seed, { broadcast, chainId: config.chainId })
+    transfer: (
+      receiver: string,
+      amount: number,
+      seed: string,
+      options: Write.TxOptions = {}
+    ) =>
+      Write.transfer(receiver, amount, seed, options, {
+        broadcast,
+        chainId: config.chainId
+      })
   }
 }
 

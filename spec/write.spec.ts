@@ -26,9 +26,30 @@ describe('write', () => {
       }
 
       const tx = Transactions.transfer(params, helper.config.seed)
-      const txHash = await Write.broadcast(tx, { nodeUrl: helper.config.nodeUrl })
+      const txHash = await Write.broadcast(tx, {}, { nodeUrl: helper.config.nodeUrl })
 
       expect(typeof txHash).toBe('string')
+    })
+
+    it('does not wait for tx when specified', async () => {
+      const params: Transactions.ITransferParams = {
+        recipient: helper.createAccount().address,
+        amount: 100,
+        chainId: helper.config.chainId,
+        fee: 5 * helper.config.feeMultiplier
+      }
+
+      const spy = jest.spyOn(Write, 'waitForTx')
+
+      const tx = Transactions.transfer(params, helper.config.seed)
+      const txHash = await Write.broadcast(
+        tx,
+        { waitForTx: false },
+        { nodeUrl: helper.config.nodeUrl }
+      )
+
+      expect(typeof txHash).toBe('string')
+      expect(spy).toHaveBeenCalledTimes(0)
     })
   })
 
@@ -53,10 +74,16 @@ describe('write', () => {
         return ''
       }
 
-      await Write.transferKey(receiver.address, assetId, sender.seed, {
-        broadcast: mockBroadcast,
-        chainId: helper.config.chainId
-      })
+      await Write.transferKey(
+        receiver.address,
+        assetId,
+        sender.seed,
+        {},
+        {
+          broadcast: mockBroadcast,
+          chainId: helper.config.chainId
+        }
+      )
     })
   })
 
@@ -79,10 +106,16 @@ describe('write', () => {
         return ''
       }
 
-      await Write.transfer(receiver.address, 100, sender.seed, {
-        broadcast: mockBroadcast,
-        chainId: helper.config.chainId
-      })
+      await Write.transfer(
+        receiver.address,
+        100,
+        sender.seed,
+        {},
+        {
+          broadcast: mockBroadcast,
+          chainId: helper.config.chainId
+        }
+      )
     })
   })
 
@@ -107,14 +140,21 @@ describe('write', () => {
         return ''
       }
 
-      await Write.interactWithDevice('key', dapp.address, 'action', sender.seed, {
-        broadcast: mockBroadcast,
-        chainId: helper.config.chainId
-      })
+      await Write.interactWithDevice(
+        'key',
+        dapp.address,
+        'action',
+        sender.seed,
+        {},
+        {
+          broadcast: mockBroadcast,
+          chainId: helper.config.chainId
+        }
+      )
     })
   })
 
-  describe('interactWithDevice', () => {
+  describe('interactWithDeviceAs', () => {
     it('broadcast correct tx', async () => {
       const dapp = helper.createAccount()
       const fromAddress = helper.createAccount()
@@ -143,6 +183,7 @@ describe('write', () => {
         'action',
         sender.seed,
         fromAddress.address,
+        {},
         {
           broadcast: mockBroadcast,
           chainId: helper.config.chainId
@@ -173,10 +214,17 @@ describe('write', () => {
         return ''
       }
 
-      await Write.generateKey('aaa', 111, dapp.seed, 'SmartKey', {
-        broadcast: mockBroadcast,
-        chainId: helper.config.chainId
-      })
+      await Write.generateKey(
+        'aaa',
+        111,
+        dapp.seed,
+        'SmartKey',
+        {},
+        {
+          broadcast: mockBroadcast,
+          chainId: helper.config.chainId
+        }
+      )
     })
   })
 
@@ -209,6 +257,7 @@ describe('write', () => {
           { key: 'boolean', value: true }
         ],
         dapp.seed,
+        {},
         {
           broadcast: mockBroadcast,
           chainId: helper.config.chainId
@@ -235,10 +284,15 @@ describe('write', () => {
         return ''
       }
 
-      await Write.setScript(script, dapp.seed, {
-        broadcast: mockBroadcast,
-        chainId: helper.config.chainId
-      })
+      await Write.setScript(
+        script,
+        dapp.seed,
+        {},
+        {
+          broadcast: mockBroadcast,
+          chainId: helper.config.chainId
+        }
+      )
     })
   })
 })

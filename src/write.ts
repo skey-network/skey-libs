@@ -5,13 +5,28 @@ export const WVS = 10 ** 8
 
 type TxDeps = {
   chainId: string
-  broadcast: (tx: Transactions.TTx) => Promise<string>
+  broadcast: (tx: Transactions.TTx, options?: TxOptions) => Promise<string>
 }
 
+export type TxOptions = {
+  waitForTx?: boolean
+}
+
+export const waitForTx = Transactions.waitForTx
+
 export type BroadcastDeps = { nodeUrl: string }
-export const broadcast = async (tx: Transactions.TTx, deps: BroadcastDeps) => {
+export const broadcast = async (
+  tx: Transactions.TTx,
+  options: TxOptions,
+  deps: BroadcastDeps
+) => {
   const ttx = await Transactions.broadcast(tx, deps.nodeUrl)
-  await Transactions.waitForTx(ttx.id, { apiBase: deps.nodeUrl })
+  const wait = options.waitForTx === undefined ? true : options.waitForTx
+
+  if (wait) {
+    await waitForTx(ttx.id, { apiBase: deps.nodeUrl })
+  }
+
   return ttx.id
 }
 
@@ -20,6 +35,7 @@ export const transferKey = async (
   receiver: string,
   assetId: string,
   seed: string,
+  options: TxOptions,
   deps: TransferKeyDeps
 ) => {
   const params: Transactions.ITransferParams = {
@@ -31,7 +47,7 @@ export const transferKey = async (
   }
 
   const tx = Transactions.transfer(params, seed)
-  return await deps.broadcast(tx)
+  return await deps.broadcast(tx, options)
 }
 
 export type InteractWithDeviceDeps = TxDeps
@@ -40,6 +56,7 @@ export const interactWithDevice = async (
   dapp: string,
   action: string,
   seed: string,
+  options: TxOptions,
   deps: InteractWithDeviceDeps
 ) => {
   const FUNC_NAME = 'deviceAction'
@@ -58,7 +75,7 @@ export const interactWithDevice = async (
   }
 
   const tx = Transactions.invokeScript(params, seed)
-  return await deps.broadcast(tx)
+  return await deps.broadcast(tx, options)
 }
 
 export type GenerateKeyDeps = TxDeps
@@ -67,6 +84,7 @@ export const generateKey = async (
   validTo: number,
   seed: string,
   name = 'SmartKey',
+  options: TxOptions,
   deps: GenerateKeyDeps
 ) => {
   const params: Transactions.IIssueParams = {
@@ -80,13 +98,14 @@ export const generateKey = async (
   }
 
   const tx = Transactions.issue(params, seed)
-  return await deps.broadcast(tx)
+  return await deps.broadcast(tx, options)
 }
 
 export type InsertDataDeps = TxDeps
 export const insertData = async (
   entries: Entry[],
   seed: string,
+  options: TxOptions,
   deps: InsertDataDeps
 ) => {
   const params: Transactions.IDataParams = {
@@ -96,11 +115,16 @@ export const insertData = async (
   }
 
   const tx = Transactions.data(params, seed)
-  return await deps.broadcast(tx)
+  return await deps.broadcast(tx, options)
 }
 
 export type SetScriptDeps = TxDeps
-export const setScript = async (script: string, seed: string, deps: SetScriptDeps) => {
+export const setScript = async (
+  script: string,
+  seed: string,
+  options: TxOptions,
+  deps: SetScriptDeps
+) => {
   const params: Transactions.ISetScriptParams = {
     script,
     fee: 14 * FEE_MULTIPLIER,
@@ -108,7 +132,7 @@ export const setScript = async (script: string, seed: string, deps: SetScriptDep
   }
 
   const tx = Transactions.setScript(params, seed)
-  return await deps.broadcast(tx)
+  return await deps.broadcast(tx, options)
 }
 
 export type InteractWithDeviceAsDeps = TxDeps
@@ -118,6 +142,7 @@ export const interactWithDeviceAs = async (
   action: string,
   seed: string,
   fromAddress: string,
+  options: TxOptions,
   deps: InteractWithDeviceDeps
 ) => {
   const FUNC_NAME = 'deviceActionAs'
@@ -137,7 +162,7 @@ export const interactWithDeviceAs = async (
   }
 
   const tx = Transactions.invokeScript(params, seed)
-  return await deps.broadcast(tx)
+  return await deps.broadcast(tx, options)
 }
 
 export type TransferDeps = TxDeps
@@ -145,6 +170,7 @@ export const transfer = async (
   receiver: string,
   amount: number,
   seed: string,
+  options: TxOptions,
   deps: TransferKeyDeps
 ) => {
   const params: Transactions.ITransferParams = {
@@ -155,5 +181,5 @@ export const transfer = async (
   }
 
   const tx = Transactions.transfer(params, seed)
-  return await deps.broadcast(tx)
+  return await deps.broadcast(tx, options)
 }
