@@ -95,6 +95,11 @@ export const getInstance = (config: Config) => {
       Write.transfer(receiver, amount, seed, options, {
         broadcast,
         chainId: config.chainId
+      }),
+    setAlias: (alias: string, seed: string, options: Write.TxOptions = {}) =>
+      Write.setAlias(alias, seed, options, {
+        broadcast,
+        chainId: config.chainId
       })
   }
 }

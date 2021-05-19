@@ -1,4 +1,5 @@
 import * as Transactions from '@waves/waves-transactions'
+import { deepStrictEqual } from 'node:assert'
 
 export const FEE_MULTIPLIER = 10 ** 5
 export const WVS = 10 ** 8
@@ -181,5 +182,22 @@ export const transfer = async (
   }
 
   const tx = Transactions.transfer(params, seed)
+  return await deps.broadcast(tx, options)
+}
+
+export type SetAliasDeps = TxDeps
+export const setAlias = async (
+  alias: string,
+  seed: string,
+  options: TxOptions,
+  deps: SetAliasDeps
+) => {
+  const params: Transactions.IAliasParams = {
+    alias,
+    chainId: deps.chainId,
+    fee: 5 * FEE_MULTIPLIER
+  }
+
+  const tx = Transactions.alias(params, seed)
   return await deps.broadcast(tx, options)
 }

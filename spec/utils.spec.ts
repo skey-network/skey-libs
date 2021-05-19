@@ -12,7 +12,7 @@ describe('utils', () => {
 
     it('undefined', async () => {
       const { device, validTo } = Utils.extractValuesFromKey(
-        (undefined as unknown) as string
+        undefined as unknown as string
       )
       expect(device).toBe(undefined)
       expect(validTo).toBe(undefined)

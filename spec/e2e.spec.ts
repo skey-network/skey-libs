@@ -194,6 +194,11 @@ describe('e2e', () => {
     await lib.setScript(script, ctx.dapp.seed)
   })
 
+  it('setAlias', async () => {
+    const alias = 'test_dapp_' + Math.random().toString(36).substring(5)
+    await lib.setAlias(alias, ctx.dapp.seed)
+  })
+
   it('interactWithDevice', async () => {
     await lib.interactWithDevice(ctx.key.assetId, ctx.dapp.address, 'open', ctx.user.seed)
   })

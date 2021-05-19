@@ -67,6 +67,10 @@ const getInstance = (config) => {
         transfer: (receiver, amount, seed, options = {}) => Write.transfer(receiver, amount, seed, options, {
             broadcast,
             chainId: config.chainId
+        }),
+        setAlias: (alias, seed, options = {}) => Write.setAlias(alias, seed, options, {
+            broadcast,
+            chainId: config.chainId
         })
     };
 };

@@ -20,6 +20,7 @@ console.log(device.name)
 ```
 
 ## Development and testing
+
 ```bash
 npm install
 # or
@@ -30,41 +31,41 @@ npm test
 
 ## Documentation
 
-- ### **createAccount**  
+- ### **createAccount**
   returns new random seed, address, public key and private key
-- ### **extractValuesFromKey**  
+- ### **extractValuesFromKey**
   extracts device address and validTo timestamp from key description
-- ### **fetchKeyOwner**  
+- ### **fetchKeyOwner**
   fetches the address that is currently in posesion of token  
-  **IMPORTANT** use current height - 1 
-- ### **fetchHeight**  
+  **IMPORTANT** use current height - 1
+- ### **fetchHeight**
   fetches current blockchain height
-- ### **fetchDataWithRegex**  
+- ### **fetchDataWithRegex**
   fetches data entries from address using regex filter
-- ### **fetchDevices**  
+- ### **fetchDevices**
   fetches device addresses from date entries of dapp
-- ### **request**  
+- ### **request**
   requests any data from blockchain  
   https://nodes.wavesnodes.com/api-docs
-- ### **fetchKeyWhitelist**  
+- ### **fetchKeyWhitelist**
   fetches key data entries from any address
-- ### **waitForNBlocks**  
+- ### **waitForNBlocks**
   waits until n amount of blocks passes and resolves the promise
-- ### **delay**  
+- ### **delay**
   wait until n amount of milliseconds pass and resolves the promise
-- ### **broadcast**  
-  broadcasts tx and waits 
-- ### **transferKey**  
+- ### **broadcast**
+  broadcasts tx and waits
+- ### **transferKey**
   transfer selected token to different address
-- ### **WVS**  
-  10 ** 8
+- ### **WVS**
+  10 \*\* 8
 - ### **FEE_MULTIPLIER**
-  10 ** 5  
+  10 \*\* 5
 - ### **fetchDevice**
-  fetches device data of address  
-- ### **interactWithDevice**  
+  fetches device data of address
+- ### **interactWithDevice**
   invoke deviceAction function on device
-- ### **interactWithDeviceAs**  
+- ### **interactWithDeviceAs**
   invoke deviceActionAs function on device
 - ### **onBlockchainUpdate**
   listener function that fires callback when new block is mined
@@ -78,3 +79,5 @@ npm test
   fetch key details by assetId
 - ### **transfer**
   transfer native tokens to address
+- ### **setAlias**
+  set a blockchain alias to an address

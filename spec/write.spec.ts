@@ -295,4 +295,34 @@ describe('write', () => {
       )
     })
   })
+
+  describe('setAlias', () => {
+    it('broadcast correct tx', async () => {
+      const dapp = helper.createAccount()
+      const alias = 'dapp123'
+
+      const mockBroadcast = async (tx: Transactions.TTx) => {
+        const stx = tx as Transactions.IAliasTransaction
+
+        expect(stx.chainId).toBe(helper.config.chainId.charCodeAt(0))
+        expect(stx.fee).toBe(5 * helper.config.feeMultiplier)
+        expect(stx.type).toBe(TRANSACTION_TYPE.ALIAS)
+        expect(stx.proofs[0]).toBeDefined()
+        expect(stx.senderPublicKey).toBe(Crypto.publicKey(dapp.seed))
+        expect(stx.alias).toBe(alias)
+
+        return ''
+      }
+
+      await Write.setAlias(
+        alias,
+        dapp.seed,
+        {},
+        {
+          broadcast: mockBroadcast,
+          chainId: helper.config.chainId
+        }
+      )
+    })
+  })
 })
