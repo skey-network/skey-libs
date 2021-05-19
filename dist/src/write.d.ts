@@ -27,4 +27,6 @@ export declare type InteractWithDeviceAsDeps = TxDeps;
 export declare const interactWithDeviceAs: (key: string, dapp: string, action: string, seed: string, fromAddress: string, options: TxOptions, deps: InteractWithDeviceDeps) => Promise<string>;
 export declare type TransferDeps = TxDeps;
 export declare const transfer: (receiver: string, amount: number, seed: string, options: TxOptions, deps: TransferKeyDeps) => Promise<string>;
+export declare type SetAliasDeps = TxDeps;
+export declare const setAlias: (alias: string, seed: string, options: TxOptions, deps: SetAliasDeps) => Promise<string>;
 export {};
