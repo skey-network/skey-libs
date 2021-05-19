@@ -1,5 +1,4 @@
 import * as Transactions from '@waves/waves-transactions'
-import { deepStrictEqual } from 'node:assert'
 
 export const FEE_MULTIPLIER = 10 ** 5
 export const WVS = 10 ** 8
