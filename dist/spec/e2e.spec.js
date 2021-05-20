@@ -43,6 +43,8 @@ const fs_1 = require("fs");
 // insertData               DONE
 // interactWithDeviceAs     DONE
 // transfer                 DONE
+// setAsset                 DONE
+// fetchAssets              DONE
 const ctx = {
     dapp: {
         address: '',
@@ -68,6 +70,7 @@ const ctx = {
 };
 const { nodeUrl, chainId } = helper.config;
 const lib = index_1.getInstance({ nodeUrl, chainId });
+const alias = 'test_dapp_' + Math.random().toString(36).substring(5);
 describe('e2e', () => {
     it('creates accounts', async () => {
         ctx.dapp = lib.createAccount();
@@ -172,8 +175,12 @@ describe('e2e', () => {
         await lib.setScript(script, ctx.dapp.seed);
     });
     it('setAlias', async () => {
-        const alias = 'test_dapp_' + Math.random().toString(36).substring(5);
         await lib.setAlias(alias, ctx.dapp.seed);
+    });
+    it('fetchAliases', async () => {
+        const res = await lib.fetchAliases(ctx.dapp.address);
+        expect(res.length).toBe(1);
+        expect(res[0]).toBe(`alias:${chainId}:${alias}`);
     });
     it('interactWithDevice', async () => {
         await lib.interactWithDevice(ctx.key.assetId, ctx.dapp.address, 'open', ctx.user.seed);

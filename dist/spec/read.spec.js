@@ -165,5 +165,17 @@ describe('read', () => {
             expect((_b = device.location) === null || _b === void 0 ? void 0 : _b.alt).toBe(undefined);
         });
     });
+    describe('fetchAliases', () => {
+        it('returns aliases of account', async () => {
+            const mockAddress = 'foobarbaz';
+            const mockRequest = async (path) => {
+                const pathRegex = new RegExp(`\/alias\/by-address\/${mockAddress}`);
+                expect(pathRegex.test(path)).toBe(true);
+                return ['foo', 'bar', 'foobarbaz'];
+            };
+            const aliases = await Read.fetchAliases(mockAddress, { request: mockRequest });
+            expect(aliases.length).toBe(3);
+        });
+    });
 });
 //# sourceMappingURL=read.spec.js.map
