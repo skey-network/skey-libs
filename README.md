@@ -81,3 +81,5 @@ npm test
   transfer native tokens to address
 - ### **setAlias**
   set a blockchain alias to an address
+- ### **fetchAliases**
+  fetch blockchain aliases of an account

@@ -6,8 +6,7 @@ export const config = {
   chainId: 'A',
   feeMultiplier: 10 ** 5,
   wvs: 10 ** 8,
-  seed:
-    'furnace defy model disagree stick pepper pony angle avocado open still innocent blood room gun'
+  seed: 'furnace defy model disagree stick pepper pony angle avocado open still innocent blood room gun'
 }
 
 export const address = () => {

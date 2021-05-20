@@ -100,7 +100,10 @@ export const getInstance = (config: Config) => {
       Write.setAlias(alias, seed, options, {
         broadcast,
         chainId: config.chainId
-      })
+      }),
+    fetchAliases: (account: string) => {
+      return Read.fetchAliases(account, { request })
+    }
   }
 }
 
