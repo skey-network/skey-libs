@@ -188,18 +188,13 @@ describe('read', () => {
       const mockRequest = async (path: string) => {
         const pathRegex = new RegExp(`\/alias\/by-address\/${mockAddress}`)
         expect(pathRegex.test(path)).toBe(true)
-        
-        return [
-          'foo',
-          'bar',
-          'foobarbaz'
-        ]
+
+        return ['foo', 'bar', 'foobarbaz']
       }
 
       const aliases = await Read.fetchAliases(mockAddress, { request: mockRequest })
 
       expect(aliases.length).toBe(3)
-
     })
   })
 })

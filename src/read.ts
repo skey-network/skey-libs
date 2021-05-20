@@ -126,7 +126,10 @@ export const fetchKey = async (assetId: string, deps: FetchKeyDeps): Promise<any
 }
 
 export type FetchAliasesDeps = WithRequest
-export const fetchAliases = async(address: string, deps: FetchAliasesDeps): Promise<string[]> => {
+export const fetchAliases = async (
+  address: string,
+  deps: FetchAliasesDeps
+): Promise<string[]> => {
   const path = `/alias/by-address/${address}`
   return await deps.request(path)
 }
