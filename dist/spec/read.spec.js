@@ -177,5 +177,18 @@ describe('read', () => {
             expect(aliases.length).toBe(3);
         });
     });
+    describe('findAddressByAlias', () => {
+        it('returns address with alias', async () => {
+            const mockAddress = 'testAAddress1';
+            const mockAlias = 'foobarbaz';
+            const mockRequest = async (path) => {
+                const pathRegex = new RegExp(`\/alias\/by-alias\/${mockAlias}`);
+                expect(pathRegex.test(path)).toBe(true);
+                return { address: mockAddress };
+            };
+            const res = await Read.findAddressByAlias(mockAlias, { request: mockRequest });
+            expect(res.address).toBe(mockAddress);
+        });
+    });
 });
 //# sourceMappingURL=read.spec.js.map

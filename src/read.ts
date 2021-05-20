@@ -133,3 +133,9 @@ export const fetchAliases = async (
   const path = `/alias/by-address/${address}`
   return await deps.request(path)
 }
+
+export type findAddressByAliasDeps = WithRequest
+export const findAddressByAlias = async (alias: string, deps: findAddressByAliasDeps) => {
+  const path = `/alias/by-alias/${alias}`
+  return await deps.request(path)
+}

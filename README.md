@@ -83,3 +83,5 @@ npm test
   set a blockchain alias to an address
 - ### **fetchAliases**
   fetch blockchain aliases of an account
+- ### **findAddressByAlias**
+  find an address from an alias
