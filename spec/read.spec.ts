@@ -181,4 +181,25 @@ describe('read', () => {
       expect(device.location?.alt).toBe(undefined)
     })
   })
+
+  describe('fetchAliases', () => {
+    it('returns aliases of account', async () => {
+      const mockAddress = 'foobarbaz'
+      const mockRequest = async (path: string) => {
+        const pathRegex = new RegExp(`\/alias\/by-address\/${mockAddress}`)
+        expect(pathRegex.test(path)).toBe(true)
+        
+        return [
+          'foo',
+          'bar',
+          'foobarbaz'
+        ]
+      }
+
+      const aliases = await Read.fetchAliases(mockAddress, { request: mockRequest })
+
+      expect(aliases.length).toBe(3)
+
+    })
+  })
 })
