@@ -23,11 +23,11 @@ exports.delay = exports.broadcast = exports.fund = exports.generateKey = exports
 const Transactions = __importStar(require("@waves/waves-transactions"));
 const Crypto = __importStar(require("@waves/ts-lib-crypto"));
 exports.config = {
-    nodeUrl: 'http://localhost:6869',
-    chainId: 'R',
+    nodeUrl: 'https://srv-de-1.testnet.node.smartkeyplatform.io',
+    chainId: 'A',
     feeMultiplier: 10 ** 5,
     wvs: 10 ** 8,
-    seed: 'wool cool valve avocado depart uniform foil tuna pill panic cushion sell junior another spawn'
+    seed: 'furnace defy model disagree stick pepper pony angle avocado open still innocent blood room gun'
 };
 const address = () => {
     return Crypto.address(exports.config.seed, exports.config.chainId);
