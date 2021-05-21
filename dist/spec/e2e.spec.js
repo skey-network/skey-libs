@@ -177,6 +177,10 @@ describe('e2e', () => {
     it('setAlias', async () => {
         await lib.setAlias(alias, ctx.dapp.seed);
     });
+    it('findAddressByAlias', async () => {
+        const res = await lib.findAddressByAlias(alias);
+        expect(res.address).toBe(ctx.dapp.address);
+    });
     it('fetchAliases', async () => {
         const res = await lib.fetchAliases(ctx.dapp.address);
         expect(res.length).toBe(1);
