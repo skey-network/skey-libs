@@ -29,4 +29,8 @@ export declare const fetchKeyWhitellist: (address: string, deps: FetchKeyWhiteli
 }[]>;
 export declare type FetchKeyDeps = WithRequest;
 export declare const fetchKey: (assetId: string, deps: FetchKeyDeps) => Promise<any>;
+export declare type FetchAliasesDeps = WithRequest;
+export declare const fetchAliases: (address: string, deps: FetchAliasesDeps) => Promise<string[]>;
+export declare type findAddressByAliasDeps = WithRequest;
+export declare const findAddressByAlias: (alias: string, deps: findAddressByAliasDeps) => Promise<any>;
 export {};

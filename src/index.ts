@@ -100,7 +100,9 @@ export const getInstance = (config: Config) => {
       Write.setAlias(alias, seed, options, {
         broadcast,
         chainId: config.chainId
-      })
+      }),
+    fetchAliases: (account: string) => Read.fetchAliases(account, { request }),
+    findAddressByAlias: (alias: string) => Read.findAddressByAlias(alias, { request })
   }
 }
 

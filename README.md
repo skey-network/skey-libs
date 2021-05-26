@@ -4,14 +4,14 @@
 
 ```js
 // Add this to package.json dependencies
-// ... "skey-lib": "git+https://github.com/adrian-rom64/skey-lib.git"
+// ... "skey-lib": "git+https://github.com/smartkeyplatform/SmartKey-Libs.git"
 // and run npm install or yarn
 
 import { getInstance } from 'skey-lib'
 
 const lib = getInstance({
-  nodeUrl: 'https://nodes-testnet.wavesnodes.com',
-  chainId: 'T',
+  nodeUrl: 'https://master.testnet.node.smartkeyplatform.io',
+  chainId: 'A',
 })
 
 const device = await lib.fetchDevice('3P5dg6PtSAQmdH1qCGKJWu7bkzRG27mny5i'))
@@ -46,7 +46,7 @@ npm test
   fetches device addresses from date entries of dapp
 - ### **request**
   requests any data from blockchain  
-  https://nodes.wavesnodes.com/api-docs
+  https://master.testnet.node.smartkeyplatform.io/api-docs
 - ### **fetchKeyWhitelist**
   fetches key data entries from any address
 - ### **waitForNBlocks**
@@ -81,3 +81,7 @@ npm test
   transfer native tokens to address
 - ### **setAlias**
   set a blockchain alias to an address
+- ### **fetchAliases**
+  fetch blockchain aliases of an account
+- ### **findAddressByAlias**
+  find an address from an alias
