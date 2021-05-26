@@ -1,14 +1,18 @@
 export const deviceFields = [
-  'name',
-  'lat',
-  'lng',
-  'alt',
-  'type',
-  'dapp',
-  'owner',
-  'description',
-  'active',
-  'connected'
+  'name', // string
+  'type', // string
+  'supplier', // string(address)
+  'owner', // string(address)
+  'version', // string
+  'lat', // string(float), optional
+  'lng', // string(float), optional
+  'alt', // string(float), optional
+  'active', // boolean
+  'connected', // boolean
+  'visible', // boolean
+  'description', // string, optional
+  'details', // string(json), optional
+  'custom' // string(json), optional
 ]
 
 export const deviceRegex = 'device_.{35}'

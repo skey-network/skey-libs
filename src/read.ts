@@ -22,16 +22,6 @@ export const fetchDevice = async (address: string, deps: FetchDeviceDeps) => {
     }
   }
 
-  obj.location = { lat: obj.lat, lng: obj.lng, alt: obj.alt }
-
-  delete obj.lat
-  delete obj.lng
-  delete obj.alt
-
-  // TODO Remove later
-  obj.active = true
-  obj.connected = true
-
   return obj as Device
 }
 
