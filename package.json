@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@waves/ts-lib-crypto": "^1.4.3",
-    "@waves/waves-transactions": "^4.1.8",
+    "@waves/waves-transactions": "4.1.7",
     "node-fetch": "^2.6.1"
   }
 }
