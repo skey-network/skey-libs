@@ -743,10 +743,10 @@
   resolved "https://registry.yarnpkg.com/@waves/ts-types/-/ts-types-0.3.5.tgz#f0503ccf38211a33777f54a549cc3b15aeb3f89f"
   integrity sha512-f4rTEc0hJ1yrsZPmnkLLhxbv6Kry4P35cPhOz8VIe/j4pB5uk0DrHRb5UoKV1xmTWBSZt5bKRiVZLdsIcIn8Gw==
 
-"@waves/waves-transactions@^4.1.8":
-  version "4.1.8"
-  resolved "https://registry.yarnpkg.com/@waves/waves-transactions/-/waves-transactions-4.1.8.tgz#0d4891b04dd9a54d81ccb7fee70a36a64641a762"
-  integrity sha512-pTdGs5/pvrXWaV4kxSkhWb6ir/g2FEhLV7KDyfRhlwxMtA3DjK8KDewmKbMw9kOLGy4g/FlfyhgKY6OPdzbf5w==
+"@waves/waves-transactions@4.1.7":
+  version "4.1.7"
+  resolved "https://registry.yarnpkg.com/@waves/waves-transactions/-/waves-transactions-4.1.7.tgz#0dd89c0177ce8678cd341c05341b180507f6e553"
+  integrity sha512-aIV1WM3TDAb6/3EUIjSlED5Kvp9PoXJmOC8fsvgzoRCAEZzrWVv0bRgP7VWDMKpeB6otwno3FFBDdej2WN3O2g==
   dependencies:
     "@waves/marshall" "0.14.0"
     "@waves/node-api-js" "1.1.1"
