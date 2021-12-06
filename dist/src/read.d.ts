@@ -31,6 +31,16 @@ export declare type FetchKeyDeps = WithRequest;
 export declare const fetchKey: (assetId: string, deps: FetchKeyDeps) => Promise<any>;
 export declare type FetchAliasesDeps = WithRequest;
 export declare const fetchAliases: (address: string, deps: FetchAliasesDeps) => Promise<string[]>;
+export interface DappScript {
+    url: string;
+    raw?: string;
+    version: string;
+    required: boolean;
+}
+export interface DappScripts {
+    [scriptName: string]: DappScript;
+}
+export declare const fetchScripts: () => Promise<DappScripts>;
 export declare type findAddressByAliasDeps = WithRequest;
 export declare const findAddressByAlias: (alias: string, deps: findAddressByAliasDeps) => Promise<any>;
 export {};

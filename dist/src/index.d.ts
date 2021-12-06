@@ -1,4 +1,5 @@
 import './types';
+import * as Read from './read';
 import * as Write from './write';
 import * as Transactions from '@waves/waves-transactions';
 export interface Config {
@@ -48,6 +49,7 @@ export declare const getInstance: (config: Config) => {
     setAlias: (alias: string, seed: string, options?: Write.TxOptions) => Promise<string>;
     fetchAliases: (account: string) => Promise<string[]>;
     findAddressByAlias: (alias: string) => Promise<any>;
+    fetchScripts: () => Promise<Read.DappScripts>;
 };
 declare const _default: {
     getInstance: (config: Config) => {
@@ -93,6 +95,7 @@ declare const _default: {
         setAlias: (alias: string, seed: string, options?: Write.TxOptions) => Promise<string>;
         fetchAliases: (account: string) => Promise<string[]>;
         findAddressByAlias: (alias: string) => Promise<any>;
+        fetchScripts: () => Promise<Read.DappScripts>;
     };
 };
 export default _default;

@@ -15,8 +15,10 @@ export const fetchDevice = async (address: string, deps: FetchDeviceDeps) => {
   const obj: any = { address }
 
   for (const item of data) {
-    if (item.key === 'lat' || item.key === 'lng' || item.key === 'alt') {
+    if (constants.floatDeviceFields.includes(item.key)) {
       obj[item.key] = Number(item.value)
+    } else if (constants.booleanDeviceFields.includes(item.key)) {
+      obj[item.key] = !!item.value
     } else {
       obj[item.key] = item.value
     }
@@ -122,6 +124,37 @@ export const fetchAliases = async (
 ): Promise<string[]> => {
   const path = `/alias/by-address/${address}`
   return await deps.request(path)
+}
+
+export interface DappScript {
+  url: string
+  raw?: string
+  version: string
+  required: boolean
+}
+
+export interface DappScripts {
+  [scriptName: string]: DappScript
+}
+
+export const fetchScripts = async (): Promise<DappScripts> => {
+  const url =
+    'https://raw.githubusercontent.com/skey-network/skey-client-config/master/dapps.json'
+  const res = await fetch(url)
+  const body = await res.json()
+
+  const scripts: DappScripts = await body.scripts
+
+  await Promise.all(
+    Object.entries(scripts).map(async ([key, val]) => {
+      const scriptRes = await fetch(val.url)
+      const scriptBody = await scriptRes.text()
+
+      scripts[key].raw = scriptBody
+    })
+  )
+
+  return scripts
 }
 
 export type findAddressByAliasDeps = WithRequest

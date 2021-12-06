@@ -2,16 +2,16 @@ declare interface Device {
   address: string
   name?: string
   description?: string
-  location?: {
-    lat?: number
-    lng?: number
-    alt?: number
-  }
+  lat?: number
+  lng?: number
+  alt?: number
   type?: string
   dapp?: string
+  supplier?: string
   owner?: string
   active?: boolean
   connected?: boolean
+  visible?: boolean
 }
 
 declare interface Key {

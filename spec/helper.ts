@@ -1,12 +1,18 @@
 import * as Transactions from '@waves/waves-transactions'
 import * as Crypto from '@waves/ts-lib-crypto'
 
+import Dotenv from 'dotenv'
+Dotenv.config()
+
 export const config = {
-  nodeUrl: 'https://srv-de-1.testnet.node.smartkeyplatform.io',
-  chainId: 'A',
+  nodeUrl:
+    process.env.BLOCKCHAIN_URL ?? 'https://master.testnet.node.smartkeyplatform.io',
+  chainId: process.env.BLOCKCHAIN_CHAIN_ID ?? 'A',
   feeMultiplier: 10 ** 5,
   wvs: 10 ** 8,
-  seed: 'furnace defy model disagree stick pepper pony angle avocado open still innocent blood room gun'
+  seed:
+    process.env.BLOCKCHAIN_FAUCET_SEED ??
+    'furnace defy model disagree stick pepper pony angle avocado open still innocent blood room gun'
 }
 
 export const address = () => {

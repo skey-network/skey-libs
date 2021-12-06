@@ -173,12 +173,12 @@ describe('read', () => {
       const device = await Read.fetchDevice('aaa', { request: mockRequest })
 
       expect(device.address).toBe('aaa')
-      expect(device.location?.lat).toBe(34.2)
+      expect(device.lat).toBe(34.2)
       expect(device.name).toBe('test')
       expect(device.owner).toBe('owner')
       expect(device.active).toBe(true)
       expect(device.description).toBe(undefined)
-      expect(device.location?.alt).toBe(undefined)
+      expect(device.alt).toBe(undefined)
     })
   })
 
@@ -212,6 +212,23 @@ describe('read', () => {
       const res = await Read.findAddressByAlias(mockAlias, { request: mockRequest })
 
       expect(res.address).toBe(mockAddress)
+    })
+  })
+
+  describe('fetchScripts', () => {
+    const availableScripts = ['device', 'father', 'organisation', 'supplier']
+    const scriptProperties = ['url', 'raw', 'version', 'required']
+
+    it('fetches all scripts from Github', async () => {
+      const scripts = await Read.fetchScripts()
+
+      availableScripts.forEach((attr: string) => {
+        expect(scripts).toHaveProperty(attr)
+
+        scriptProperties.forEach((prop: string) => {
+          expect(scripts[attr]).toHaveProperty(prop)
+        })
+      })
     })
   })
 })

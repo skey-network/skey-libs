@@ -22,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findAddressByAlias = exports.fetchAliases = exports.fetchKey = exports.fetchKeyWhitellist = exports.fetchDevices = exports.fetchDataWithRegex = exports.request = exports.fetchHeight = exports.fetchKeyOwner = exports.fetchDevice = void 0;
+exports.findAddressByAlias = exports.fetchScripts = exports.fetchAliases = exports.fetchKey = exports.fetchKeyWhitellist = exports.fetchDevices = exports.fetchDataWithRegex = exports.request = exports.fetchHeight = exports.fetchKeyOwner = exports.fetchDevice = void 0;
 const node_fetch_1 = __importDefault(require("node-fetch"));
 const constants_1 = require("./constants");
 const constants = __importStar(require("../src/constants"));
@@ -32,8 +32,11 @@ const fetchDevice = async (address, deps) => {
     const data = await deps.request(path);
     const obj = { address };
     for (const item of data) {
-        if (item.key === 'lat' || item.key === 'lng' || item.key === 'alt') {
+        if (constants.floatDeviceFields.includes(item.key)) {
             obj[item.key] = Number(item.value);
+        }
+        else if (constants.booleanDeviceFields.includes(item.key)) {
+            obj[item.key] = !!item.value;
         }
         else {
             obj[item.key] = item.value;
@@ -106,6 +109,19 @@ const fetchAliases = async (address, deps) => {
     return await deps.request(path);
 };
 exports.fetchAliases = fetchAliases;
+const fetchScripts = async () => {
+    const url = 'https://raw.githubusercontent.com/skey-network/skey-client-config/master/dapps.json';
+    const res = await node_fetch_1.default(url);
+    const body = await res.json();
+    const scripts = await body.scripts;
+    await Promise.all(Object.entries(scripts).map(async ([key, val]) => {
+        const scriptRes = await node_fetch_1.default(val.url);
+        const scriptBody = await scriptRes.text();
+        scripts[key].raw = scriptBody;
+    }));
+    return scripts;
+};
+exports.fetchScripts = fetchScripts;
 const findAddressByAlias = async (alias, deps) => {
     const path = `/alias/by-alias/${alias}`;
     return await deps.request(path);

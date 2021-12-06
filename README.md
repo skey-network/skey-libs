@@ -85,3 +85,24 @@ npm test
   fetch blockchain aliases of an account
 - ### **findAddressByAlias**
   find an address from an alias
+- ### **fetchScripts**
+
+  fetch current version of dApp scripts from Github
+
+  currently available scripts:
+
+  - Device
+  - Dapp Father
+  - Organisation
+  - Supplier
+
+  this method will return scripts following the interface below:
+
+```typescript
+interface DappScript {
+  url: string // URL The sdcript was taken from
+  raw: string // compiled script
+  version: string // Version of the script
+  required: boolean // Is the script required?
+}
+```

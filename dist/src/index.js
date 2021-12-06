@@ -73,7 +73,10 @@ const getInstance = (config) => {
             chainId: config.chainId
         }),
         fetchAliases: (account) => Read.fetchAliases(account, { request }),
-        findAddressByAlias: (alias) => Read.findAddressByAlias(alias, { request })
+        findAddressByAlias: (alias) => Read.findAddressByAlias(alias, { request }),
+        fetchScripts: () => {
+            return Read.fetchScripts();
+        }
     };
 };
 exports.getInstance = getInstance;
