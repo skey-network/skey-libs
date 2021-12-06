@@ -137,7 +137,7 @@ export interface DappScripts {
   [scriptName: string]: DappScript
 }
 
-export const fetchScripts = async (): Promise<any> => {
+export const fetchScripts = async (): Promise<DappScripts> => {
   const url =
     'https://raw.githubusercontent.com/skey-network/skey-client-config/master/dapps.json'
   const res = await fetch(url)
