@@ -743,10 +743,10 @@
   resolved "https://registry.yarnpkg.com/@waves/ts-types/-/ts-types-0.3.5.tgz#f0503ccf38211a33777f54a549cc3b15aeb3f89f"
   integrity sha512-f4rTEc0hJ1yrsZPmnkLLhxbv6Kry4P35cPhOz8VIe/j4pB5uk0DrHRb5UoKV1xmTWBSZt5bKRiVZLdsIcIn8Gw==
 
-"@waves/waves-transactions@^4.1.8":
-  version "4.1.8"
-  resolved "https://registry.yarnpkg.com/@waves/waves-transactions/-/waves-transactions-4.1.8.tgz#0d4891b04dd9a54d81ccb7fee70a36a64641a762"
-  integrity sha512-pTdGs5/pvrXWaV4kxSkhWb6ir/g2FEhLV7KDyfRhlwxMtA3DjK8KDewmKbMw9kOLGy4g/FlfyhgKY6OPdzbf5w==
+"@waves/waves-transactions@4.1.7":
+  version "4.1.7"
+  resolved "https://registry.yarnpkg.com/@waves/waves-transactions/-/waves-transactions-4.1.7.tgz#0dd89c0177ce8678cd341c05341b180507f6e553"
+  integrity sha512-aIV1WM3TDAb6/3EUIjSlED5Kvp9PoXJmOC8fsvgzoRCAEZzrWVv0bRgP7VWDMKpeB6otwno3FFBDdej2WN3O2g==
   dependencies:
     "@waves/marshall" "0.14.0"
     "@waves/node-api-js" "1.1.1"
@@ -1410,6 +1410,11 @@ domexception@^2.0.1:
   integrity sha512-yxJ2mFy/sibVQlu5qHjOkf9J3K6zgmCxgJ94u2EdvDOV09H+32LtRswEcUsmUWN72pVLOEnTSRaIVVzVQgS0dg==
   dependencies:
     webidl-conversions "^5.0.0"
+
+dotenv@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-10.0.0.tgz#3d4227b8fb95f81096cdd2b66653fb2c7085ba81"
+  integrity sha512-rlBi9d8jpv9Sf1klPjNfFAuWDjKLwTIJJ/VxtoTwIR6hnZxcEOQCZg2oIL3MWBYw5GpUDKOEnND7LXTbIpQ03Q==
 
 ecc-jsbn@~0.1.1:
   version "0.1.2"

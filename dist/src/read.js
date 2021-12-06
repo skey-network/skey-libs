@@ -22,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fetchScripts = exports.fetchAliases = exports.fetchKey = exports.fetchKeyWhitellist = exports.fetchDevices = exports.fetchDataWithRegex = exports.request = exports.fetchHeight = exports.fetchKeyOwner = exports.fetchDevice = void 0;
+exports.findAddressByAlias = exports.fetchScripts = exports.fetchAliases = exports.fetchKey = exports.fetchKeyWhitellist = exports.fetchDevices = exports.fetchDataWithRegex = exports.request = exports.fetchHeight = exports.fetchKeyOwner = exports.fetchDevice = void 0;
 const node_fetch_1 = __importDefault(require("node-fetch"));
 const constants_1 = require("./constants");
 const constants = __importStar(require("../src/constants"));
@@ -32,20 +32,16 @@ const fetchDevice = async (address, deps) => {
     const data = await deps.request(path);
     const obj = { address };
     for (const item of data) {
-        if (item.key === 'lat' || item.key === 'lng' || item.key === 'alt') {
+        if (constants.floatDeviceFields.includes(item.key)) {
             obj[item.key] = Number(item.value);
+        }
+        else if (constants.booleanDeviceFields.includes(item.key)) {
+            obj[item.key] = !!item.value;
         }
         else {
             obj[item.key] = item.value;
         }
     }
-    obj.location = { lat: obj.lat, lng: obj.lng, alt: obj.alt };
-    delete obj.lat;
-    delete obj.lng;
-    delete obj.alt;
-    // TODO Remove later
-    obj.active = true;
-    obj.connected = true;
     return obj;
 };
 exports.fetchDevice = fetchDevice;
@@ -126,4 +122,9 @@ const fetchScripts = async () => {
     return scripts;
 };
 exports.fetchScripts = fetchScripts;
+const findAddressByAlias = async (alias, deps) => {
+    const path = `/alias/by-alias/${alias}`;
+    return await deps.request(path);
+};
+exports.findAddressByAlias = findAddressByAlias;
 //# sourceMappingURL=read.js.map

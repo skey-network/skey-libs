@@ -102,9 +102,8 @@ export const getInstance = (config: Config) => {
         broadcast,
         chainId: config.chainId
       }),
-    fetchAliases: (account: string) => {
-      return Read.fetchAliases(account, { request })
-    },
+    fetchAliases: (account: string) => Read.fetchAliases(account, { request }),
+    findAddressByAlias: (alias: string) => Read.findAddressByAlias(alias, { request }),
     fetchScripts: () => {
       return Read.fetchScripts()
     }

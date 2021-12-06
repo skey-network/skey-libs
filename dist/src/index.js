@@ -72,9 +72,8 @@ const getInstance = (config) => {
             broadcast,
             chainId: config.chainId
         }),
-        fetchAliases: (account) => {
-            return Read.fetchAliases(account, { request });
-        },
+        fetchAliases: (account) => Read.fetchAliases(account, { request }),
+        findAddressByAlias: (alias) => Read.findAddressByAlias(alias, { request }),
         fetchScripts: () => {
             return Read.fetchScripts();
         }

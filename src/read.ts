@@ -15,22 +15,14 @@ export const fetchDevice = async (address: string, deps: FetchDeviceDeps) => {
   const obj: any = { address }
 
   for (const item of data) {
-    if (item.key === 'lat' || item.key === 'lng' || item.key === 'alt') {
+    if (constants.floatDeviceFields.includes(item.key)) {
       obj[item.key] = Number(item.value)
+    } else if (constants.booleanDeviceFields.includes(item.key)) {
+      obj[item.key] = !!item.value
     } else {
       obj[item.key] = item.value
     }
   }
-
-  obj.location = { lat: obj.lat, lng: obj.lng, alt: obj.alt }
-
-  delete obj.lat
-  delete obj.lng
-  delete obj.alt
-
-  // TODO Remove later
-  obj.active = true
-  obj.connected = true
 
   return obj as Device
 }
@@ -163,4 +155,10 @@ export const fetchScripts = async (): Promise<any> => {
   )
 
   return scripts
+}
+
+export type findAddressByAliasDeps = WithRequest
+export const findAddressByAlias = async (alias: string, deps: findAddressByAliasDeps) => {
+  const path = `/alias/by-alias/${alias}`
+  return await deps.request(path)
 }

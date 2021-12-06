@@ -41,4 +41,6 @@ export interface DappScripts {
     [scriptName: string]: DappScript;
 }
 export declare const fetchScripts: () => Promise<any>;
+export declare type findAddressByAliasDeps = WithRequest;
+export declare const findAddressByAlias: (alias: string, deps: findAddressByAliasDeps) => Promise<any>;
 export {};
