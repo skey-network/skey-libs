@@ -86,13 +86,15 @@ npm test
 - ### **findAddressByAlias**
   find an address from an alias
 - ### **fetchScripts**
+
   fetch current version of dApp scripts from Github
 
   currently available scripts:
-  -  Device
-  -  Dapp Father
-  -  Organisation
-  -  Supplier
+
+  - Device
+  - Dapp Father
+  - Organisation
+  - Supplier
 
   this method will return scripts following the interface below:
 
