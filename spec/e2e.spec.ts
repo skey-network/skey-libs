@@ -211,6 +211,11 @@ describe('e2e', () => {
     await lib.interactWithDevice(ctx.key.assetId, ctx.dapp.address, 'open', ctx.user.seed)
   })
 
+  it('findAddressByAlias', async () => {
+    const res = await lib.findAddressByAlias(alias)
+    expect(res.address).toBe(ctx.dapp.address)
+  })
+
   it('interactWithDeviceAs', async () => {
     await Promise.all([
       lib.insertData(

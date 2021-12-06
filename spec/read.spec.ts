@@ -198,6 +198,23 @@ describe('read', () => {
     })
   })
 
+  describe('findAddressByAlias', () => {
+    it('returns address with alias', async () => {
+      const mockAddress = 'testAAddress1'
+      const mockAlias = 'foobarbaz'
+      const mockRequest = async (path: string) => {
+        const pathRegex = new RegExp(`\/alias\/by-alias\/${mockAlias}`)
+        expect(pathRegex.test(path)).toBe(true)
+
+        return { address: mockAddress }
+      }
+
+      const res = await Read.findAddressByAlias(mockAlias, { request: mockRequest })
+
+      expect(res.address).toBe(mockAddress)
+    })
+  })
+
   describe('fetchScripts', () => {
     const availableScripts = ['device', 'father', 'organisation', 'supplier']
     const scriptProperties = ['url', 'raw', 'version', 'required']

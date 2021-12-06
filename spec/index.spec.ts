@@ -30,6 +30,7 @@ describe('index', () => {
     expect(lib.transfer).toBeDefined()
     expect(lib.setAlias).toBeDefined()
     expect(lib.fetchAliases).toBeDefined()
+    expect(lib.findAddressByAlias).toBeDefined()
     expect(lib.fetchScripts).toBeDefined()
   })
 
