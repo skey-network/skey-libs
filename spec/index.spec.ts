@@ -34,7 +34,7 @@ describe('index', () => {
   })
 
   it('contains exact number of properties', async () => {
-    const EXPECTED = 26
+    const EXPECTED = 27
     const no = Object.keys(lib).length
 
     expect(no).toBe(EXPECTED)

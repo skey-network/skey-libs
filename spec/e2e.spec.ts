@@ -188,7 +188,7 @@ describe('e2e', () => {
 
     expect(device.name).toBe('Adam')
     expect(device.active).toBe(true)
-    expect(device.location?.lat).toBe(5.6345)
+    expect(device.lat).toBe(5.6345)
     expect((device as any)[`key_${ctx.key.assetId}`]).toBeUndefined()
   })
 

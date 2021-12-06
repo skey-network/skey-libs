@@ -173,12 +173,12 @@ describe('read', () => {
       const device = await Read.fetchDevice('aaa', { request: mockRequest })
 
       expect(device.address).toBe('aaa')
-      expect(device.location?.lat).toBe(34.2)
+      expect(device.lat).toBe(34.2)
       expect(device.name).toBe('test')
       expect(device.owner).toBe('owner')
       expect(device.active).toBe(true)
       expect(device.description).toBe(undefined)
-      expect(device.location?.alt).toBe(undefined)
+      expect(device.alt).toBe(undefined)
     })
   })
 
