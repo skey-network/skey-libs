@@ -133,3 +133,34 @@ export const fetchAliases = async (
   const path = `/alias/by-address/${address}`
   return await deps.request(path)
 }
+
+export interface DappScript {
+  url: string
+  raw?: string
+  version: string
+  required: boolean
+}
+
+export interface DappScripts {
+  [scriptName: string]: DappScript
+}
+
+export const fetchScripts = async (): Promise<any> => {
+  const url =
+    'https://raw.githubusercontent.com/skey-network/skey-client-config/master/dapps.json'
+  const res = await fetch(url)
+  const body = await res.json()
+
+  const scripts: DappScripts = await body.scripts
+
+  await Promise.all(
+    Object.entries(scripts).map(async ([key, val]) => {
+      const scriptRes = await fetch(val.url)
+      const scriptBody = await scriptRes.text()
+
+      scripts[key].raw = scriptBody
+    })
+  )
+
+  return scripts
+}

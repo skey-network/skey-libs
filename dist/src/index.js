@@ -74,6 +74,9 @@ const getInstance = (config) => {
         }),
         fetchAliases: (account) => {
             return Read.fetchAliases(account, { request });
+        },
+        fetchScripts: () => {
+            return Read.fetchScripts();
         }
     };
 };

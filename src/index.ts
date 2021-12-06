@@ -3,6 +3,7 @@ import * as Utils from './utils'
 import * as Read from './read'
 import * as Write from './write'
 import * as Transactions from '@waves/waves-transactions'
+import { Readable } from 'stream'
 
 export interface Config {
   nodeUrl: string
@@ -103,6 +104,9 @@ export const getInstance = (config: Config) => {
       }),
     fetchAliases: (account: string) => {
       return Read.fetchAliases(account, { request })
+    },
+    fetchScripts: () => {
+      return Read.fetchScripts()
     }
   }
 }

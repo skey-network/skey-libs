@@ -30,9 +30,10 @@ describe('index', () => {
         expect(lib.transfer).toBeDefined();
         expect(lib.setAlias).toBeDefined();
         expect(lib.fetchAliases).toBeDefined();
+        expect(lib.fetchScripts).toBeDefined();
     });
     it('contains exact number of properties', async () => {
-        const EXPECTED = 25;
+        const EXPECTED = 26;
         const no = Object.keys(lib).length;
         expect(no).toBe(EXPECTED);
     });

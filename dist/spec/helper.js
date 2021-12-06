@@ -23,7 +23,7 @@ exports.delay = exports.broadcast = exports.fund = exports.generateKey = exports
 const Transactions = __importStar(require("@waves/waves-transactions"));
 const Crypto = __importStar(require("@waves/ts-lib-crypto"));
 exports.config = {
-    nodeUrl: 'https://srv-de-1.testnet.node.smartkeyplatform.io',
+    nodeUrl: 'https://master.testnet.node.smartkeyplatform.io',
     chainId: 'A',
     feeMultiplier: 10 ** 5,
     wvs: 10 ** 8,

@@ -197,4 +197,21 @@ describe('read', () => {
       expect(aliases.length).toBe(3)
     })
   })
+
+  describe('fetchScripts', () => {
+    const availableScripts = ['device', 'father', 'organisation', 'supplier']
+    const scriptProperties = ['url', 'raw', 'version', 'required']
+
+    it('fetches all scripts from Github', async () => {
+      const scripts = await Read.fetchScripts()
+
+      availableScripts.forEach((attr: string) => {
+        expect(scripts).toHaveProperty(attr)
+
+        scriptProperties.forEach((prop: string) => {
+          expect(scripts[attr]).toHaveProperty(prop)
+        })
+      })
+    })
+  })
 })

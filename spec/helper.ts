@@ -2,7 +2,7 @@ import * as Transactions from '@waves/waves-transactions'
 import * as Crypto from '@waves/ts-lib-crypto'
 
 export const config = {
-  nodeUrl: 'https://srv-de-1.testnet.node.smartkeyplatform.io',
+  nodeUrl: 'https://master.testnet.node.smartkeyplatform.io',
   chainId: 'A',
   feeMultiplier: 10 ** 5,
   wvs: 10 ** 8,

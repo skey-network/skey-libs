@@ -47,6 +47,7 @@ export declare const getInstance: (config: Config) => {
     transfer: (receiver: string, amount: number, seed: string, options?: Write.TxOptions) => Promise<string>;
     setAlias: (alias: string, seed: string, options?: Write.TxOptions) => Promise<string>;
     fetchAliases: (account: string) => Promise<string[]>;
+    fetchScripts: () => Promise<any>;
 };
 declare const _default: {
     getInstance: (config: Config) => {
@@ -91,6 +92,7 @@ declare const _default: {
         transfer: (receiver: string, amount: number, seed: string, options?: Write.TxOptions) => Promise<string>;
         setAlias: (alias: string, seed: string, options?: Write.TxOptions) => Promise<string>;
         fetchAliases: (account: string) => Promise<string[]>;
+        fetchScripts: () => Promise<any>;
     };
 };
 export default _default;
