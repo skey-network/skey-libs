@@ -1,3 +1,4 @@
+import { Entry } from './types'
 import * as Transactions from '@waves/waves-transactions'
 
 export const FEE_MULTIPLIER = 10 ** 5

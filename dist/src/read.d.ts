@@ -1,3 +1,4 @@
+import { Device, Entry } from './types';
 declare type WithRequest = {
     request: (path: string) => Promise<any>;
 };

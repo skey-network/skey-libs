@@ -1,3 +1,4 @@
+import { Entry } from './types';
 import * as Transactions from '@waves/waves-transactions';
 export declare const FEE_MULTIPLIER: number;
 export declare const WVS: number;
