@@ -1,16 +1,15 @@
-import './types'
+import { Entry, SkeyInstance } from './types'
 import * as Utils from './utils'
 import * as Read from './read'
 import * as Write from './write'
 import * as Transactions from '@waves/waves-transactions'
-import { Readable } from 'stream'
 
 export interface Config {
   nodeUrl: string
   chainId: string
 }
 
-export const getInstance = (config: Config) => {
+export const getInstance = (config: Config): SkeyInstance => {
   const request = (path: string) => Read.request(path, { baseUrl: config.nodeUrl })
   const fetchDataWithRegex = (regex: string, address: string) =>
     Read.fetchDataWithRegex(regex, address, { request })
@@ -109,5 +108,22 @@ export const getInstance = (config: Config) => {
     }
   }
 }
+
+/**
+ * Export interfaces
+ */
+export {
+  Device,
+  Key,
+  Entry,
+  BinaryEntry,
+  BooleanEntry,
+  DataEntry,
+  DeleteEntry,
+  IntegerEntry,
+  StringEntry,
+  Account,
+  SkeyInstance
+} from './types'
 
 export default { getInstance }

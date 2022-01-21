@@ -1,3 +1,5 @@
+import { Device, Entry } from './types'
+
 import fetch from 'node-fetch'
 import { deviceFields } from './constants'
 import * as constants from '../src/constants'
