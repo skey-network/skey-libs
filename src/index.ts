@@ -109,4 +109,21 @@ export const getInstance = (config: Config): SkeyInstance => {
   }
 }
 
+/**
+ * Export interfaces
+ */
+export {
+  Device,
+  Key,
+  Entry,
+  BinaryEntry,
+  BooleanEntry,
+  DataEntry,
+  DeleteEntry,
+  IntegerEntry,
+  StringEntry,
+  Account,
+  SkeyInstance
+} from './types'
+
 export default { getInstance }
